@@ -10,7 +10,6 @@ ese log.txt.
 import csv
 import json
 
-
 def leer_csv(ruta_csv):
     """Paso 1 y 2: lee el CSV y devuelve una lista de diccionarios."""
     contactos = []

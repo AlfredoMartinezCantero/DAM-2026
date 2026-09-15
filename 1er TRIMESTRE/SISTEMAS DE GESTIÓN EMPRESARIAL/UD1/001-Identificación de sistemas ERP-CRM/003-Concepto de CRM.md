@@ -7,5 +7,5 @@ SIS = Student information System
 LMS = Learning Management System
 
 GMAO = Gestión de Mantenimiento Asistido por Ordenador
-IPMS = Integrated Project Management System (Hoteles)
+PMS = Property Management System (Hoteles)
 CMS = Content Management Systems

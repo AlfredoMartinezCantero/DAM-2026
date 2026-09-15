@@ -8,4 +8,4 @@ LMS = Learning Management System
 
 GMAO = Gestión de Mantenimiento Asistido por Ordenador
 IPMS = Integrated Project Management System (Hoteles)
-CMS = Content Management System
+CMS = Content Management Systems

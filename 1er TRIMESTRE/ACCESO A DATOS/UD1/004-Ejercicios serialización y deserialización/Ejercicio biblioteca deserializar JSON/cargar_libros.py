@@ -3,7 +3,6 @@ import os
 
 NOMBRE_FICHERO = "biblioteca.dat"
 
-
 def leer_fichero():
     ruta = os.path.join(os.path.dirname(__file__), NOMBRE_FICHERO)
     with open(ruta, "r", encoding="utf-8") as archivo:

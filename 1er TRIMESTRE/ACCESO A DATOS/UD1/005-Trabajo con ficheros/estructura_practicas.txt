@@ -1,0 +1,7 @@
+practicas/
+  tema1/
+    apuntes.txt
+    ejercicios/
+      ejercicio1.py
+  tema2/
+    resumen.txt

@@ -13,3 +13,8 @@ sudo service apache2 restart
 
 analizar el acces.log
 analizar el error.log
+
+var/log/apache2/acces.log
+
+PHP en Ubuntu no lleva SQLite incorporado:
+sudo apt install php-sqlite3

@@ -58,4 +58,3 @@ if __name__ == "__main__":
     cuaderno = Cuaderno(NOMBRE_NOTAS)
     cuaderno.anadir("Pablo", 7)
     cuaderno.anadir("Lucia", 10)
-

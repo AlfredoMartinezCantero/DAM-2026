@@ -1,73 +1,137 @@
-let bichitos = null;
-
-let anchura = 0;
-let altura = 0;
-
-
 onmessage = function(evento){
 
-  const datos = evento.data;
+    const datos =
+        evento.data;
+
+    const todos =
+        datos.bichitos;
+
+    const inicio =
+        datos.inicio;
+
+    const fin =
+        datos.fin;
+
+    const anchura =
+        datos.anchura;
+
+    const altura =
+        datos.altura;
 
 
-  if(datos.tipo === "iniciar"){
-
-    bichitos = datos.bichitos;
-
-    anchura = datos.anchura;
-    altura = datos.altura;
-
-    calcular();
-
-  }
+    let resultado = [];
 
 
-  if(datos.tipo === "continuar"){
+    for(
+        let i = inicio;
+        i < fin;
+        i++
+    ){
 
-    calcular();
+        let b =
+            todos[i];
 
-  }
+
+        // ==================================
+        // MOVIMIENTO
+        // ==================================
+
+        b.x +=
+            Math.cos(b.angulo) *
+            b.velocidad;
+
+        b.y +=
+            Math.sin(b.angulo) *
+            b.velocidad;
+
+
+
+        // ==================================
+        // PARED DERECHA
+        // ==================================
+
+        if(
+            b.x+b.radio >
+            anchura
+        ){
+
+            b.x =
+                anchura-b.radio;
+
+            b.angulo =
+                Math.PI-b.angulo;
+
+        }
+
+
+
+        // ==================================
+        // PARED IZQUIERDA
+        // ==================================
+
+        if(
+            b.x-b.radio <
+            0
+        ){
+
+            b.x =
+                b.radio;
+
+            b.angulo =
+                Math.PI-b.angulo;
+
+        }
+
+
+
+        // ==================================
+        // PARED INFERIOR
+        // ==================================
+
+        if(
+            b.y+b.radio >
+            altura
+        ){
+
+            b.y =
+                altura-b.radio;
+
+            b.angulo =
+                -b.angulo;
+
+        }
+
+
+
+        // ==================================
+        // PARED SUPERIOR
+        // ==================================
+
+        if(
+            b.y-b.radio <
+            0
+        ){
+
+            b.y =
+                b.radio;
+
+            b.angulo =
+                -b.angulo;
+
+        }
+
+
+        resultado.push(b);
+
+    }
+
+
+    postMessage({
+
+        inicio:inicio,
+
+        bichitos:resultado
+
+    });
 
 };
-
-
-function calcular(){
-
-  for(let i = 0; i < bichitos.length; i++){
-
-    let b = bichitos[i];
-
-    b.x += (Math.random() - 0.5) * 10;
-    b.y += (Math.random() - 0.5) * 10;
-
-
-    if(b.x < 0)
-      b.x = anchura;
-
-    if(b.x > anchura)
-      b.x = 0;
-
-    if(b.y < 0)
-      b.y = altura;
-
-    if(b.y > altura)
-      b.y = 0;
-
-  }
-
-
-  /*
-    Enviamos los datos.
-
-    Y PARAMOS.
-
-    No hacemos:
-
-        setTimeout(bucle, 0)
-
-    El worker no vuelve a calcular
-    hasta recibir "continuar".
-  */
-
-  postMessage(bichitos);
-
-}

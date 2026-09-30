@@ -12,6 +12,11 @@
         document.querySelector("#maestro").onclick = function(){
             quiensoy = "maestro";
             document.querySelector("#texto").textContent = "Soy maestro"
+            fetch("datos.csv")
+            .then(function(resultado){return resultado.text()})
+            .then(function(datos){
+                document.querySelector("#texto").textContent = datos
+            })
         }
         
         document.querySelector("#esclavo").onclick = function(){
@@ -23,13 +28,23 @@
                 numero *= multiplicador;
             }
             document.querySelector("#texto").textContent = numero;
-            fetch("recepcion.php",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(numero)
-            })
+            fetch("recepcion.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(numero)
+        })
+        .then(function(respuesta){
+            console.log("HTTP:", respuesta.status);
+            return respuesta.text();
+        })
+        .then(function(datos){
+            console.log("PHP responde:", datos);
+        })
+        .catch(function(error){
+            console.error("Error fetch:", error);
+        });
             
         }
         </script>	

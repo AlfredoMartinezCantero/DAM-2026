@@ -44,3 +44,4 @@ Yo he usado PHP
 -igual yo quiero Node
 
 Al finalizar:
+Debéis rellenar el documento, no solo presentando el proyecto sino justificando los "por qué" de vuestras decisiones

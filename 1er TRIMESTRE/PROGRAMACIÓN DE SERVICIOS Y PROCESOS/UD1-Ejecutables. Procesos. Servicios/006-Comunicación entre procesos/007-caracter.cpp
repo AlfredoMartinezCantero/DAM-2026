@@ -1,8 +1,9 @@
 #include <iostream>
 
 int main() {
-    int altura = 1.78;
+    float altura = 1.78;
 	int edad = 48;
+    int inicial = 'j';
     std::cout << "Mi altura es de " << altura << " metros" << std::endl;
     return 0;
 }

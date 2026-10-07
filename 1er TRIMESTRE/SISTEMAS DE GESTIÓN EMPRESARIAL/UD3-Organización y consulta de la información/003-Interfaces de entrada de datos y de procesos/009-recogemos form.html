@@ -37,7 +37,9 @@
         evento.preventDefault() // No te envíes 
         console.log("Ahora yo controlo el formulario")
 
-        let Superformulario = new FormData();
+        let Superformulario = new FormData(formulario);
+        console.log(Superformulario)
+
      	}
     </script>
   </body>

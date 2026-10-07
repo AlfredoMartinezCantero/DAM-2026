@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reporting · Informe completo</title>
+  <link rel="stylesheet" href="reporting.css">
+</head>
+<body>
+  <nav class="herramientas" aria-label="Acciones del informe">
+    <a href="../index.html">← Volver al sistema</a>
+    <button type="button" id="imprimir" disabled>Imprimir / Guardar PDF</button>
+  </nav>
+  <main>
+    <header>
+      <p class="marca" id="empresa">darkorange · Reporting</p>
+      <h1>Informe de la base de datos</h1>
+      <p id="fecha"></p>
+      <p id="estado" role="status">Cargando todas las tablas…</p>
+    </header>
+    <div id="tablas"></div>
+  </main>
+  <script src="tabla.js"></script>
+  <script src="reporting.js"></script>
+</body>
+</html>

@@ -26,20 +26,39 @@
       .then(function(resultado){return resultado.json()})
       .then(function(datos){
         console.log(datos)
-            datos.forEach(function(control){
-                let instancia = plantilla.content.cloneNode(true)
-                instancia.querySelector("label").textContent = control.name
-                formulario.appendChild(instancia)
-            })
+          datos.forEach(function(control){
+            let instancia = plantilla.content.cloneNode(true)
+            instancia.querySelector("label").textContent = control.name
+            instancia.querySelector("input").setAttribute("name",control.name)
+            formulario.appendChild(instancia)
+          })
        })
       
       formulario.onsubmit = function(evento){
-        evento.preventDefault() // No te envíes 
+      	evento.preventDefault()		// No te envíes
         console.log("Ahora yo controlo el formulario")
-
-        let Superformulario = new FormData(formulario);
-        console.log(Superformulario)
-
+        
+        let SuperFormulario = new FormData(formulario);
+        console.log(SuperFormulario)
+        // Los recorremos
+        let mijson = {};
+        for(let [clave, valor] of SuperFormulario){
+            mijson[clave] = valor;
+        }
+        console.log(mijson)
+        fetch("010-guardar.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(mijson)
+        })
+        .then(function(respuesta){
+            return respuesta.text()
+        })
+        .then(function(datos){
+            console.log("Respuesta del servidor:", datos)
+        })
      	}
     </script>
   </body>

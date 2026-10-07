@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Listado de clientes</title>
+  <style>
+    :root { font-family: "Segoe UI", Arial, sans-serif; color: #26324a; background: #f1f4fa; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: clamp(20px, 5vw, 64px) 20px; }
+    main { max-width: 1200px; margin: auto; }
+    header { margin-bottom: 28px; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: -.04em; }
+    header p { margin: 0; color: #64748b; line-height: 1.6; }
+    .panel { background: white; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 12px 35px #26324a0d; overflow: hidden; }
+    .barra { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; padding: 24px; }
+    .busqueda { flex: 1; min-width: 220px; }
+    .busqueda label { display: block; margin-bottom: 8px; font-size: .875rem; font-weight: 600; }
+    input { width: 100%; padding: 11px 13px; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; color: inherit; background: #f8fafc; }
+    input::placeholder { color: #64748b; }
+    button { font: inherit; cursor: pointer; }
+    #limpiar { align-self: flex-end; padding: 11px 16px; border: 1px solid #cbd5e1; border-radius: 8px; color: #4338ca; background: white; }
+    #limpiar:hover { background: #eef2ff; }
+    input:focus-visible, button:focus-visible { outline: 3px solid #818cf8; outline-offset: 3px; }
+    .tabla-contenedor { overflow-x: auto; }
+    table { width: 100%; min-width: 850px; border-collapse: collapse; text-align: left; }
+    caption { text-align: left; padding: 0 24px 16px; color: #64748b; font-size: .875rem; }
+    th { background: #373078; color: white; }
+    th button { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; border: 0; padding: 16px; color: inherit; background: transparent; text-align: left; font-weight: 600; }
+    th button:hover { background: #ffffff18; }
+    .filtros td { padding: 12px; background: #eef2ff; }
+    .filtros input { background: white; font-size: .875rem; }
+    tbody td { padding: 16px; border-bottom: 1px solid #e8edf5; }
+    tbody tr.alterna { background: #f8fafc; }
+    tbody tr:hover { background: #eef2ff; }
+    tbody td:first-child { font-weight: 600; }
+    [hidden] { display: none !important; }
+    #sin-resultados { padding: 32px 24px; text-align: center; color: #64748b; }
+    footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 18px 24px; background: #f8fafc; font-size: .875rem; }
+    #contador { font-weight: 600; color: #4338ca; }
+    #estado { color: #64748b; }
+    @media (max-width: 600px) { .barra { padding: 18px; } .busqueda { flex-basis: 100%; } }
+      .numerico { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .resumen { padding: 24px; border-top: 1px solid #e2e8f0; }
+    .resumen h2 { margin: 0 0 8px; font-size: 1.2rem; }
+    .resumen p { color: #64748b; margin: 0 0 18px; }
+    .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .tarjeta { padding: 20px; border-radius: 12px; background: #eef2ff; }
+    .tarjeta h3 { margin: 0 0 16px; color: #373078; font-size: 1rem; }
+    .tarjeta dl { margin: 0; display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+    .tarjeta dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Listado de clientes</h1>
+      <p>Busca, combina filtros y pulsa las cabeceras para ordenar los resultados.</p>
+    </header>
+    <section class="panel" aria-label="Consulta de clientes">
+      <div class="barra">
+        <div class="busqueda">
+          <label for="busqueda">Buscar en todas las columnas</label>
+          <input type="search" id="busqueda" placeholder="Nombre, ciudad, email…">
+        </div>
+        <button type="button" id="limpiar">Limpiar filtros</button>
+      </div>
+      <div class="tabla-contenedor">
+        <table>
+          <caption>Clientes · ordenación ascendente y descendente por columna</caption>
+          <thead>
+            <tr><th scope="col" aria-sort="none"><button type="button" data-columna="0">Nombre <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" data-columna="1">Apellidos <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" data-columna="2">Email <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" data-columna="3">Teléfono <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" data-columna="4">Ciudad <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none" data-tipo="numero" data-formato="entero" data-nombre="Pedidos"><button type="button" data-columna="5">Pedidos <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none" data-tipo="numero" data-formato="moneda" data-nombre="Importe (€)"><button type="button" data-columna="6">Importe (€) <span aria-hidden="true">↕</span></button></th></tr>
+            <tr class="filtros"><td><input type="search" aria-label="Filtrar por nombre" placeholder="Nombre…"></td><td><input type="search" aria-label="Filtrar por apellidos" placeholder="Apellidos…"></td><td><input type="search" aria-label="Filtrar por email" placeholder="Email…"></td><td><input type="search" aria-label="Filtrar por teléfono" placeholder="Teléfono…"></td><td><input type="search" aria-label="Filtrar por ciudad" placeholder="Ciudad…"></td><td><input type="search" aria-label="Filtrar por Pedidos" placeholder="Pedidos…"></td><td><input type="search" aria-label="Filtrar por Importe (€)" placeholder="Importe (€)…"></td></tr>
+          </thead>
+          <tbody>
+    <tr>
+      <td>Laura</td>
+      <td>Martínez García</td>
+      <td>laura.martinez@example.com</td>
+      <td>612 345 678</td>
+      <td>Valencia</td>
+      <td class="numerico" data-valor="5">5</td>
+      <td class="numerico" data-valor="1250.50">1.250,50 €</td>
+    </tr>
+    <tr>
+      <td>Carlos</td>
+      <td>Sánchez López</td>
+      <td>carlos.sanchez@example.com</td>
+      <td>623 456 789</td>
+      <td>Madrid</td>
+      <td class="numerico" data-valor="8">8</td>
+      <td class="numerico" data-valor="2340.00">2.340,00 €</td>
+    </tr>
+    <tr>
+      <td>Ana</td>
+      <td>Gómez Ruiz</td>
+      <td>ana.gomez@example.com</td>
+      <td>634 567 890</td>
+      <td>Alicante</td>
+      <td class="numerico" data-valor="3">3</td>
+      <td class="numerico" data-valor="450.75">450,75 €</td>
+    </tr>
+    <tr>
+      <td>David</td>
+      <td>Navarro Torres</td>
+      <td>david.navarro@example.com</td>
+      <td>645 678 901</td>
+      <td>Castellón</td>
+      <td class="numerico" data-valor="12">12</td>
+      <td class="numerico" data-valor="3860.20">3.860,20 €</td>
+    </tr>
+    <tr>
+      <td>Marta</td>
+      <td>Romero Pérez</td>
+      <td>marta.romero@example.com</td>
+      <td>656 789 012</td>
+      <td>Sevilla</td>
+      <td class="numerico" data-valor="6">6</td>
+      <td class="numerico" data-valor="980.00">980,00 €</td>
+    </tr>
+    <tr>
+      <td>Javier</td>
+      <td>Ortega Molina</td>
+      <td>javier.ortega@example.com</td>
+      <td>667 890 123</td>
+      <td>Zaragoza</td>
+      <td class="numerico" data-valor="9">9</td>
+      <td class="numerico" data-valor="2150.90">2.150,90 €</td>
+    </tr>
+    <tr>
+      <td>Lucía</td>
+      <td>Vidal Ferrer</td>
+      <td>lucia.vidal@example.com</td>
+      <td>678 901 234</td>
+      <td>Valencia</td>
+      <td class="numerico" data-valor="4">4</td>
+      <td class="numerico" data-valor="720.40">720,40 €</td>
+    </tr>
+    <tr>
+      <td>Sergio</td>
+      <td>Moreno Gil</td>
+      <td>sergio.moreno@example.com</td>
+      <td>689 012 345</td>
+      <td>Barcelona</td>
+      <td class="numerico" data-valor="7">7</td>
+      <td class="numerico" data-valor="1690.60">1.690,60 €</td>
+    </tr>
+    <tr>
+      <td>Elena</td>
+      <td>Campos Soler</td>
+      <td>elena.campos@example.com</td>
+      <td>610 123 456</td>
+      <td>Murcia</td>
+      <td class="numerico" data-valor="2">2</td>
+      <td class="numerico" data-valor="310.25">310,25 €</td>
+    </tr>
+    <tr>
+      <td>Daniel</td>
+      <td>Ibáñez Costa</td>
+      <td>daniel.ibanez@example.com</td>
+      <td>621 234 567</td>
+      <td>Valencia</td>
+      <td class="numerico" data-valor="10">10</td>
+      <td class="numerico" data-valor="2780.80">2.780,80 €</td>
+    </tr>
+  </tbody>
+        </table>
+      </div>
+      <p id="sin-resultados" hidden>No hay clientes que coincidan con los filtros.</p>
+      <section class="resumen" aria-labelledby="titulo-resumen">
+        <h2 id="titulo-resumen">Resumen numérico</h2>
+        <p>Sumas y promedios calculados sobre las filas visibles. Datos de ejemplo.</p>
+        <div id="resumen" class="tarjetas" aria-live="polite" aria-atomic="true"></div>
+      </section>
+      <footer>
+        <span id="contador" role="status" aria-live="polite"></span>
+        <span id="estado"></span>
+      </footer>
+    </section>
+  </main>
+  <script>
+    const cuerpo = document.querySelector("tbody");
+    const filas = Array.from(cuerpo.rows);
+    const entradas = Array.from(document.querySelectorAll(".filtros input"));
+    const busqueda = document.querySelector("#busqueda");
+    const cabeceras = Array.from(document.querySelectorAll("thead th"));
+    const comparador = new Intl.Collator("es", { sensitivity: "base", numeric: true });
+    // Solo agregamos columnas marcadas como numéricas (el teléfono es texto).
+    const columnasNumericas = cabeceras.map((cabecera, indice) => ({cabecera, indice}))
+      .filter(columna => columna.cabecera.dataset.tipo === "numero");
+    const formatoNumero = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 2 });
+    const formatoMoneda = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
+
+    function calcularResumen(valores) {
+      const suma = valores.reduce((total, valor) => total + valor, 0);
+      return { suma, promedio: valores.length ? suma / valores.length : null };
+    }
+
+    function actualizarResumen() {
+      const contenedor = document.querySelector("#resumen");
+      contenedor.replaceChildren();
+      columnasNumericas.forEach(({cabecera, indice}) => {
+        const valores = filas.filter(fila => !fila.hidden)
+          .map(fila => fila.cells[indice].dataset.valor)
+          .filter(valor => valor !== undefined && valor.trim() !== "")
+          .map(Number).filter(Number.isFinite);
+        const { suma, promedio } = calcularResumen(valores);
+        const formato = cabecera.dataset.formato === "moneda" ? formatoMoneda : formatoNumero;
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "tarjeta";
+        const titulo = document.createElement("h3");
+        titulo.textContent = cabecera.dataset.nombre;
+        const lista = document.createElement("dl");
+        [["Sumatorio", formato.format(suma)],
+         ["Promedio", promedio === null ? "—" : formato.format(promedio)]].forEach(([nombre, valor]) => {
+          const etiqueta = document.createElement("dt");
+          etiqueta.textContent = nombre;
+          const resultado = document.createElement("dd");
+          resultado.textContent = valor;
+          lista.append(etiqueta, resultado);
+        });
+        tarjeta.append(titulo, lista);
+        contenedor.appendChild(tarjeta);
+      });
+    }
+
+    let columnaOrdenada = -1;
+    let ascendente = true;
+
+    // Normalizamos para que «lucia» también encuentre «Lucía».
+    function normalizar(texto) {
+      return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+    }
+
+    function filtrar() {
+      const general = normalizar(busqueda.value);
+      const filtros = entradas.map(entrada => normalizar(entrada.value));
+      let visibles = 0;
+      Array.from(cuerpo.rows).forEach(fila => {
+        const valores = Array.from(fila.cells, celda => normalizar(celda.textContent));
+        const cumple = valores.join(" ").includes(general)
+          && filtros.every((filtro, indice) => valores[indice].includes(filtro));
+        fila.hidden = !cumple;
+        fila.classList.toggle("alterna", cumple && visibles % 2 === 1);
+        if (cumple) visibles++;
+      });
+      document.querySelector("#contador").textContent = `${visibles} de ${filas.length} filas visibles`;
+      document.querySelector("#sin-resultados").hidden = visibles !== 0;
+      actualizarResumen();
+      const activos = filtros.filter(Boolean).length + (general ? 1 : 0);
+      document.querySelector("#estado").textContent = activos
+        ? `${activos} ${activos === 1 ? "filtro activo" : "filtros activos"}` : "Sin filtros activos";
+    }
+
+    // «input» también detecta pegar texto y limpiar un campo de búsqueda.
+    [busqueda, ...entradas].forEach(entrada => entrada.addEventListener("input", filtrar));
+    document.querySelector("#limpiar").addEventListener("click", () => {
+      [busqueda, ...entradas].forEach(entrada => entrada.value = "");
+      filtrar();
+      busqueda.focus();
+    });
+
+    cabeceras.forEach((cabecera, indice) => {
+      cabecera.querySelector("button").addEventListener("click", () => {
+        ascendente = columnaOrdenada === indice ? !ascendente : true;
+        columnaOrdenada = indice;
+        filas.sort((a, b) => {
+          const diferencia = cabecera.dataset.tipo === "numero"
+            ? Number(a.cells[indice].dataset.valor) - Number(b.cells[indice].dataset.valor)
+            : comparador.compare(a.cells[indice].textContent, b.cells[indice].textContent);
+          return diferencia * (ascendente ? 1 : -1);
+        });
+        filas.forEach(fila => cuerpo.appendChild(fila));
+        cabeceras.forEach((otra, posicion) => {
+          const activa = posicion === indice;
+          otra.setAttribute("aria-sort", activa ? (ascendente ? "ascending" : "descending") : "none");
+          otra.querySelector("span").textContent = activa ? (ascendente ? "↑" : "↓") : "↕";
+        });
+        filtrar();
+      });
+    });
+
+    filtrar();
+  </script>
+</body>
+</html>

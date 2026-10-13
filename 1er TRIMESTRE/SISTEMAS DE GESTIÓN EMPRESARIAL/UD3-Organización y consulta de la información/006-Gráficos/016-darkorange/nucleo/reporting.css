@@ -1,0 +1,55 @@
+/* Plantilla A4 de 002-triple salto mortal, con altura flexible para informes largos. */
+* { box-sizing: border-box; }
+body { background: grey; margin: 0; padding: 30px; font-family: Arial, sans-serif; color: #24324b; }
+main { width: 210mm; min-height: 297mm; background: white; margin: auto; padding: 20mm; }
+.herramientas { width: 210mm; max-width: 100%; margin: 0 auto 20px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.herramientas a, button { background: white; color: #373078; border: 0; padding: 12px 16px; border-radius: 6px; font: inherit; text-decoration: none; cursor: pointer; }
+button:disabled { opacity: .6; cursor: wait; }
+a:focus-visible, button:focus-visible { outline: 3px solid #a5b4fc; outline-offset: 3px; }
+h1 { font-size: 25px; margin: 10px 0 20px; }
+.marca { font-weight: bold; color: #373078; }
+header { border-bottom: 2px solid #373078; margin-bottom: 24px; }
+.entidad { margin-bottom: 30px; }
+h2 { font-size: 18px; margin-bottom: 8px; }
+.recuento, #fecha, #estado { color: #526079; font-size: 13px; }
+table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 11px; }
+th, td { border: 1px solid #ccd3df; padding: 7px; text-align: left; overflow-wrap: anywhere; }
+th { background: #eef2ff; color: #273251; }
+tbody tr:nth-child(even) { background: #f8fafc; }
+thead { display: table-header-group; }
+tr { break-inside: avoid; }
+h2, .recuento { break-after: avoid; }
+@page { size: A4; margin: 20mm; }
+@media print {
+  body { padding: 0; background: white; }
+  main { width: auto; min-height: 0; margin: 0; padding: 0; }
+  .herramientas { display: none; }
+  th { print-color-adjust: exact; }
+}
+@media screen and (max-width: 850px) {
+  body { padding: 16px; }
+  main { width: 100%; padding: 24px; }
+  .tabla-contenedor { overflow-x: auto; }
+  table { min-width: 600px; }
+}
+
+#graficas { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 30px; }
+#graficas h2, .leyenda-graficas { flex-basis: 100%; }
+#graficas figure { margin: 0; max-width: 100%; break-inside: avoid; }
+#graficas figcaption { font-weight: bold; margin-bottom: 12px; }
+.contenedor { max-width: 100%; overflow-x: auto; }
+.contenedor svg { display: block; }
+.contenedor svg text { font-family: Arial, sans-serif; font-size: 13px; pointer-events: none; }
+.contenedor svg text[font-size="28"] { font-size: 28px; }
+.contenedor rect, .contenedor path { cursor: pointer; transition: opacity .2s; }
+.contenedor rect:hover, .contenedor path:hover { opacity: .7; }
+.leyenda-graficas { display: flex; flex-wrap: wrap; gap: 12px; padding: 0; list-style: none; font-size: 12px; }
+.leyenda-graficas span { display: inline-block; width: 12px; height: 12px; margin-right: 6px; }
+.tooltip { position: fixed; display: none; background: #222; color: white; padding: 12px 16px; border-radius: 8px; font-size: 13px; pointer-events: none; z-index: 1000; line-height: 1.7; }
+.tooltip strong { color: #8ab4ff; }
+@media print {
+  .tooltip { display: none !important; }
+  .contenedor { overflow: visible; }
+  .contenedor svg { max-width: 100%; height: auto; }
+  #graficas { print-color-adjust: exact; }
+}

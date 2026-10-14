@@ -1,0 +1,17 @@
+Purple Grape · modelo v1
+
+clientes: id, nombre, email único, telefono, ciudad, estado
+productos: id, nombre, categoria, precio, stock, stock_minimo
+proveedores: id, nombre, email único, telefono, especialidad
+componentes: id, nombre, proveedor_id -> proveedores.id, precio, stock
+empleados: id, nombre, email único, departamento, puesto, salario
+pedidos: id, cliente_id -> clientes.id, fecha, estado, notas
+lineaspedido: id, pedido_id -> pedidos.id, producto_id -> productos.id, cantidad, precio_unitario
+facturas: id, numero único, pedido_id único -> pedidos.id, fecha, vencimiento, estado
+configuracion: clave, valor
+modulos: id, activo
+actividad: id, fecha, accion, entidad, detalle
+
+Vistas calculadas: resumen_pedidos y resumen_facturas.
+Esquema ejecutable y restricciones: schema.sql.
+Este documento describe el modelo; el instalador no ejecuta texto libre.

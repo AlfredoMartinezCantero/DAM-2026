@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#7c3aed"><meta name="description" content="Purple Grape, el ERP-CRM del Estudio Alfredo. Clientes, ventas y equipo en un mismo lugar.">
+  <title>Purple Grape</title><link rel="icon" href="marca.svg?v=purple-grape-1" type="image/svg+xml"><link rel="stylesheet" href="estilo.css?v=purple-grape-1">
+  <script src="codigo.js?v=purple-grape-1" defer></script>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<div class="app">
+  <aside class="sidebar">
+    <a class="marca" href="index.html" aria-label="Purple Grape, inicio"><img src="marca.svg?v=purple-grape-1" alt="" width="38" height="38"><span>Purple Grape<small>ESTUDIO ALFREDO</small></span></a>
+    <div class="workspace"><span class="punto"></span><span id="nombre-estudio">Purple Grape</span><small>ERP + CRM</small></div>
+    <p class="nav-label">CONECTA TU ESTUDIO</p>
+    <nav id="modulos" aria-label="Módulos de gestión"><button class="nav-item activo" data-vista="inicio"><span>▧</span>Vista general</button></nav>
+    <div class="sidebar-bottom"><nav aria-label="Herramientas"><button class="nav-item" data-vista="ajustes"><span>⚙</span>Ajustes del estudio</button><button class="nav-item" data-vista="ayuda"><span>?</span>Guía del proyecto</button></nav>
+      <a class="corporativa" href="estudio.html">Conoce el estudio <span>↗</span></a>
+      <div class="perfil"><span class="avatar">A</span><div><strong>Alfredo</strong><small>Proyecto DAM · UD2</small></div><span class="punto"></span></div>
+    </div>
+  </aside>
+  <div class="area-trabajo"><header class="topbar"><div class="breadcrumb">Mi estudio <span>/</span> <strong id="ruta-actual">Vista general</strong></div><div class="topbar-right"><span class="local-badge"><span class="punto"></span>Entorno local</span><time id="fecha-hoy"></time></div></header>
+    <main id="contenido" tabindex="-1"><div class="cargando">Conectando con tu estudio…</div></main>
+    <footer class="pie-app"><span>Purple Grape · Creado por Alfredo</span><span>Purple Grape 2.0 · PHP + SQLite</span></footer>
+  </div>
+</div>
+<dialog id="editor" aria-labelledby="titulo-editor"><form id="formulario"><div class="modal-top"><div><p class="eyebrow">DALE FORMA A TU ESTUDIO</p><h2 id="titulo-editor">Nuevo registro</h2></div><button class="icon-button" type="button" id="cerrar-editor" aria-label="Cerrar">×</button></div><div id="campos" class="form-grid"></div><p class="form-error" id="error-formulario" role="alert"></p><div class="modal-actions"><button type="button" class="button secondary" id="cancelar-editor">Cancelar</button><button class="button primary" type="submit" id="guardar">Guardar registro <span>↗</span></button></div></form></dialog>
+<dialog id="confirmacion" aria-labelledby="titulo-confirmacion"><div class="modal-top"><h2 id="titulo-confirmacion">¿Eliminar este registro?</h2></div><p>Esta acción elimina el registro de la base de datos. Las relaciones que estén en uso se conservarán.</p><p class="form-error" id="error-eliminar" role="alert"></p><div class="modal-actions"><button class="button secondary" id="cancelar-eliminar">Cancelar</button><button class="button danger" id="confirmar-eliminar">Eliminar registro</button></div></dialog>
+<div id="aviso" class="toast" role="status" aria-live="polite"></div>
+</body></html>

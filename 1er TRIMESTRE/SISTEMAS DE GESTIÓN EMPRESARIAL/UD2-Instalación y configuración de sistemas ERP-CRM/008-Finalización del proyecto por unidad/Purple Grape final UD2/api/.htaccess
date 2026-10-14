@@ -1,0 +1,3 @@
+<FilesMatch "^(nucleo|modulos)\.php$">
+    Require all denied
+</FilesMatch>

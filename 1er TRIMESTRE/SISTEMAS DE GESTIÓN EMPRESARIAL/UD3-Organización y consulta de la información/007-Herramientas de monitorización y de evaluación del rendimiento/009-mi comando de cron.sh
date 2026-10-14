@@ -1,0 +1,1 @@
+* * * * * /usr/bin/python3 "/var/www/html/DAM-2026/DAM-2026/1er TRIMESTRE/SISTEMAS DE GESTIÓN EMPRESARIAL/UD3-Organización y consulta de la información/007-Herramientas de monitorización y de evaluación del rendimiento/008-preparo dos cosas para cron.py"  >/dev/null 2>&1

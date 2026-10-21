@@ -9,7 +9,7 @@ header("Content-Type: application/json; charset=utf-8");
 
 $archivoBD = __DIR__ . "/empresa.db";
 $ollamaURL = "http://10.0.2.2:11434/api/generate";
-$modelo = "phi4-mini";
+$modelo = "qwen2.5-coder:3b";
 ;
 
 // ==========================================

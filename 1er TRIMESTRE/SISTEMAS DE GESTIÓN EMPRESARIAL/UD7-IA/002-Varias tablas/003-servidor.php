@@ -8,8 +8,8 @@ header("Content-Type: application/json; charset=utf-8");
 // ==========================================
 
 $archivoBD = __DIR__ . "/empresa.db";
-$ollamaURL = "http://localhost:11434/api/generate";
-$modelo = "phi4-mini"
+$ollamaURL = "http://10.0.2.2:11434/api/generate";
+$modelo = "phi4-mini";
 ;
 
 // ==========================================

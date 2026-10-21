@@ -1,0 +1,13 @@
+{
+  "titulo": "Listado de pedidos",
+  "singular": "pedido",
+  "campos": [],
+  "columnas": [
+    { "campo": "id", "etiqueta": "ID" },
+    { "campo": "cliente", "etiqueta": "Cliente" },
+    { "campo": "fecha", "etiqueta": "Fecha" },
+    { "campo": "estado", "etiqueta": "Estado" },
+    { "campo": "total", "etiqueta": "Total", "formato": "moneda" }
+  ],
+  "registros": []
+}

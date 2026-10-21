@@ -1,0 +1,130 @@
+{
+  "titulo": "Listado de clientes",
+  "columnas": [
+    {
+      "campo": "id",
+      "etiqueta": "ID"
+    },
+    {
+      "campo": "nombre",
+      "etiqueta": "Nombre"
+    },
+    {
+      "campo": "apellidos",
+      "etiqueta": "Apellidos"
+    },
+    {
+      "campo": "email",
+      "etiqueta": "Email"
+    },
+    {
+      "campo": "telefono",
+      "etiqueta": "Teléfono"
+    },
+    {
+      "campo": "empresa",
+      "etiqueta": "Empresa"
+    }
+  ],
+  "registros": [
+    {
+      "id": 1,
+      "nombre": "Laura",
+      "apellidos": "Martínez García",
+      "email": "laura.martinez@example.com",
+      "telefono": "+34 612 345 678",
+      "empresa": "Soluciones Levante S.L."
+    },
+    {
+      "id": 2,
+      "nombre": "Carlos",
+      "apellidos": "Navarro Pérez",
+      "email": "carlos.navarro@example.com",
+      "telefono": "+34 623 456 789",
+      "empresa": "Innovación Digital S.A."
+    }
+  ],
+  "singular": "cliente",
+  "campos": [
+    {
+      "nombre": "id",
+      "etiqueta": "ID",
+      "tipo": "number",
+      "min": 0,
+      "paso": 1
+    },
+    {
+      "nombre": "nombre",
+      "etiqueta": "Nombre",
+      "tipo": "text",
+      "requerido": true
+    },
+    {
+      "nombre": "apellidos",
+      "etiqueta": "Apellidos",
+      "tipo": "text"
+    },
+    {
+      "nombre": "email",
+      "etiqueta": "Correo electrónico",
+      "tipo": "email",
+      "requerido": true
+    },
+    {
+      "nombre": "telefono",
+      "etiqueta": "Teléfono",
+      "tipo": "tel"
+    },
+    {
+      "nombre": "empresa",
+      "etiqueta": "Empresa",
+      "tipo": "text"
+    },
+    {
+      "nombre": "fecha_nacimiento",
+      "etiqueta": "Fecha de nacimiento",
+      "tipo": "date"
+    },
+    {
+      "nombre": "numero_empleados",
+      "etiqueta": "Número de empleados",
+      "tipo": "number",
+      "min": 0,
+      "paso": 1
+    },
+    {
+      "nombre": "facturacion",
+      "etiqueta": "Facturación anual",
+      "tipo": "number",
+      "min": 0,
+      "paso": 0.01
+    },
+    {
+      "nombre": "web",
+      "etiqueta": "Página web",
+      "tipo": "url"
+    },
+    {
+      "nombre": "tipo_cliente",
+      "etiqueta": "Tipo de cliente",
+      "tipo": "select",
+      "opciones": [
+        "Particular",
+        "Autónomo",
+        "Empresa",
+        "Administración"
+      ]
+    },
+    {
+      "nombre": "activo",
+      "etiqueta": "Cliente activo",
+      "tipo": "checkbox",
+      "defecto": true
+    },
+    {
+      "nombre": "observaciones",
+      "etiqueta": "Observaciones",
+      "tipo": "textarea"
+    }
+  ]
+}

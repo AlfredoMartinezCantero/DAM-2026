@@ -1,0 +1,161 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Alfredo: tu espacio de gestión de clientes, catálogo y pedidos."
+    />
+    <title>Alfredo · Resumen</title>
+    <link href="img/alfredo.svg" rel="icon" type="image/svg+xml" />
+    <link href="css/estilo.css" rel="stylesheet" />
+  </head>
+  <body class="alfredo-iu">
+    <a class="skip-link" href="#escenario">Saltar al contenido</a>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#resumen" aria-label="Alfredo, inicio"
+        ><img src="img/alfredo.svg" alt="" width="34" height="34" /><span
+          >alfredo<span class="brand-subtitle">ESPACIO DE GESTIÓN</span></span
+        ></a
+      >
+      <p class="nav-label">Espacio de trabajo</p>
+      <nav id="navegacion" aria-label="Navegación principal">
+        <div class="contenido-columna"></div>
+      </nav>
+      <div class="sidebar-footer">
+        <span class="local-dot"></span
+        ><span
+          >Espacio local<small>Datos guardados en este navegador</small></span
+        >
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="app-header">
+        <button
+          id="menuMovil"
+          class="icon-button mobile-menu"
+          type="button"
+          aria-label="Abrir navegación"
+          aria-expanded="false"
+          aria-controls="sidebar"
+        >
+          ☰
+        </button>
+        <div class="breadcrumb">
+          Mi espacio <span>/</span> <strong id="nombreModulo">Resumen</strong>
+        </div>
+        <div id="herramientas">
+          <label class="search-box"
+            ><span aria-hidden="true">⌕</span
+            ><input
+              id="buscador"
+              type="search"
+              placeholder="Buscar…"
+              aria-label="Buscar registros"
+            /><kbd>/</kbd></label
+          ><button class="ju-btn" id="nuevo" type="button">+ Nuevo</button>
+        </div>
+        <a
+          class="avatar"
+          href="login.html"
+          aria-label="Abrir pantalla de acceso de Alfredo"
+          title="Alfredo · Acceso de demostración"
+          >A</a
+        >
+      </header>
+      <main class="app-main" id="contenido">
+        <section
+          id="entidades"
+          class="view-tabs"
+          aria-label="Vistas del módulo"
+        >
+          <div class="contenido-columna"></div>
+        </section>
+        <div
+          class="escenario"
+          id="escenario"
+          tabindex="-1"
+          aria-label="Contenido del módulo"
+        >
+          <p class="loading" role="status">Preparando tu espacio de trabajo…</p>
+        </div>
+      </main>
+      <footer class="workspace-footer">
+        <span>Alfredo · Interfaz integrada</span
+        ><a href="#identidad">Manual de identidad ↗</a>
+      </footer>
+    </div>
+    <template id="tpl-nav"
+      ><a href="#"
+        ><span class="ficha" aria-hidden="true"></span
+        ><span class="etiqueta"></span></a
+    ></template>
+    <template id="tpl-card"
+      ><article draggable="true">
+        <span class="ficha" aria-hidden="true"></span
+        ><span class="etiqueta"></span></article
+    ></template>
+    <template id="tpl-fila"><tr></tr></template>
+    <div
+      class="ju-drawer-overlay"
+      id="juDrawerOverlay"
+      aria-hidden="true"
+    ></div>
+    <aside
+      class="ju-drawer"
+      id="juDrawer"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="juDrawerTitle"
+      inert
+    >
+      <div
+        class="ju-drawer-resizer"
+        id="juDrawerResizer"
+        title="Arrastra para redimensionar"
+      ></div>
+      <header class="ju-drawer-header">
+        <div>
+          <small id="juDrawerMode">CREAR</small>
+          <h2 id="juDrawerTitle">Nuevo registro</h2>
+        </div>
+        <button
+          class="ju-drawer-close"
+          id="juDrawerClose"
+          type="button"
+          aria-label="Cerrar editor"
+        >
+          ×
+        </button>
+      </header>
+      <div class="ju-drawer-body" id="juDrawerBody"></div>
+    </aside>
+    <div class="ju-modal-layer" id="juModal" aria-hidden="true" inert>
+      <div class="ju-modal-backdrop" data-modal-close></div>
+      <section
+        class="ju-modal-window"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="juModalTitle"
+      >
+        <header class="ju-modal-header">
+          <h2 id="juModalTitle">Confirmar acción</h2>
+          <button
+            class="ju-modal-close"
+            type="button"
+            data-modal-close
+            aria-label="Cerrar ventana"
+          >
+            ×
+          </button>
+        </header>
+        <div class="ju-modal-body" id="juModalBody"></div>
+      </section>
+    </div>
+    <script src="js/componentes.js"></script>
+    <script src="js/pedidos.js"></script>
+    <script src="js/vistas.js"></script>
+  </body>
+</html>

@@ -1,21 +1,21 @@
-tablas
-
-calendarios
+vistas
+  tablas
+    sencilla
+    pivotante
+  calendarios
     anual
     mensual
     semanal
     diario
-  
-gráficas
-
-Mapas
-
-Cards
-
-kanban
-
-Mapa mental
-
-Relojes
-
-UI de SSOO
+  gráficas
+    barras
+    tarta
+    anillo
+  Mapas
+    fisico
+    politico
+  Cards
+  kanban
+  Mapa mental
+  Relojes
+  UI de SSOO

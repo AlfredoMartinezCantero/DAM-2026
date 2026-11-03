@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tabla de productos · Alfredo</title>
+<style>
+  :root{--color0:#211331;--color:#6842a6;--color2:#f0eaf8;--color3:#f6f7f9;--color4:#fff;--tinta:#252932;--muted:#626975;--borde:#e4e6eb}
+  *{box-sizing:border-box}
+  body{margin:0;padding:32px 18px;background:var(--color3);color:var(--tinta);font:14px "Segoe UI",Arial,sans-serif}
+  .tabla-panel{max-width:1050px;margin:auto;background:var(--color4);border:1px solid var(--borde);border-radius:8px;overflow:hidden}
+  .tabla-cabecera{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:24px;border-bottom:1px solid var(--borde)}
+  .tabla-cabecera h2{margin:0 0 5px;font-size:16px;font-weight:650}
+  .tabla-cabecera p{margin:0;font-size:12px;color:var(--muted)}
+  .controles{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+  .controles input,.controles select,.controles button{height:36px;padding:0 12px;border:1px solid var(--borde);border-radius:6px;font:12px "Segoe UI",Arial,sans-serif;background:#fff;color:var(--tinta)}
+  .controles input{width:235px;max-width:100%}
+  .controles input:focus,.controles select:focus,.controles button:focus-visible,.ordenar:focus-visible{outline:2px solid var(--color);outline-offset:2px}
+  .controles button{cursor:pointer;font-weight:600}
+  .controles button:hover{color:var(--color);background:var(--color2)}
+  .scroll-tabla{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:600px;font-size:12px}
+  th{text-align:left;background:#f7f8fa;color:#525b69;font-weight:650;border-bottom:1px solid var(--borde);padding:0}
+  th .ordenar{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:14px 20px;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer}
+  th .ordenar:hover,th[aria-sort="ascending"],th[aria-sort="descending"]{color:var(--color)}
+  .flecha{font-size:13px;color:#9298a4}
+  td{padding:14px 20px;border-bottom:1px solid var(--borde);vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:#faf8fd}
+  td:first-child{font-weight:650}
+  td:nth-child(2){color:var(--muted)}
+  .chip{display:inline-flex;align-items:center;gap:8px;padding:5px 9px;border:1px solid var(--borde);border-radius:5px;background:#fafafb;font-size:11px;font-weight:550;white-space:nowrap}
+  .muestra{display:inline-block;width:12px;height:12px;border:1px solid rgba(0,0,0,.15);border-radius:3px;flex-shrink:0}
+  .tabla-pie{padding:15px 24px;border-top:1px solid var(--borde);color:var(--muted);font-size:12px}
+  .sin-resultados{padding:30px;text-align:center;color:var(--muted);font-size:12px}
+  [hidden]{display:none!important}
+  @media(max-width:700px){body{padding:16px 10px}.tabla-cabecera{padding:18px}.controles{width:100%}.controles input{flex:1 1 100%;width:100%}.controles select{flex:1}.tabla-pie{padding:14px 18px}}
+</style>
+</head>
+<body>
+<section class="tabla-panel" aria-label="Catálogo de productos">
+  <div class="tabla-cabecera">
+    <div><h2>Productos Alfredo</h2><p>Catálogo de aplicaciones</p></div>
+    <div class="controles">
+      <input id="buscar" type="search" placeholder="Buscar productos..." aria-label="Buscar productos">
+      <select id="filtrarColor" aria-label="Filtrar por color"><option value="">Todos los colores</option></select>
+      <button id="limpiar" type="button">Limpiar</button>
+    </div>
+  </div>
+  <div class="scroll-tabla">
+    <table id="productos">
+      <thead><tr>
+        <th aria-sort="none"><button class="ordenar" data-campo="nombre" type="button">Producto Alfredo <span class="flecha">↕</span></button></th>
+        <th aria-sort="none"><button class="ordenar" data-campo="descripcion" type="button">Descripción <span class="flecha">↕</span></button></th>
+        <th aria-sort="none"><button class="ordenar" data-campo="color" type="button">Color <span class="flecha">↕</span></button></th>
+      </tr></thead>
+      <tbody>
+        <tr><td>Alfredo | dual</td><td>Aplicación para dualizar</td><td>indigo</td></tr>
+        <tr><td>Alfredo | practicas</td><td>Gestión de prácticas de alumnos</td><td>lawngreen</td></tr>
+        <tr><td>Alfredo | calificaciones</td><td>Gestión de notas y evaluaciones</td><td>greenyellow</td></tr>
+        <tr><td>Alfredo | cuaderno</td><td>Cuaderno del profesor</td><td>dimgray</td></tr>
+        <tr><td>Alfredo | ventas</td><td>CRM de gestión comercial</td><td>sandybrown</td></tr>
+        <tr><td>Alfredo | empresa</td><td>ERP de gestión empresarial</td><td>saddlebrown</td></tr>
+        <tr><td>Alfredo | ia</td><td>Asistente de inteligencia artificial</td><td>lightskyblue</td></tr>
+        <tr><td>Alfredo | video</td><td>Editor de vídeo web</td><td>turquoise</td></tr>
+        <tr><td>Alfredo | videoconferencias</td><td>Videoconferencias y grabaciones</td><td>mediumseagreen</td></tr>
+        <tr><td>Alfredo | cuestionarios</td><td>Cuestionarios interactivos</td><td>mediumspringgreen</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p id="sinResultados" class="sin-resultados" hidden>No hay productos que coincidan con los filtros.</p>
+  <div class="tabla-pie" id="contador" aria-live="polite"></div>
+</section>
+<script>
+(() => {
+  const tabla = document.getElementById('productos');
+  const tbody = tabla.tBodies[0];
+  const buscar = document.getElementById('buscar');
+  const filtro = document.getElementById('filtrarColor');
+  const contador = document.getElementById('contador');
+  const sinResultados = document.getElementById('sinResultados');
+  const collator = new Intl.Collator('es', {numeric: true, sensitivity: 'base'});
+  let productos = [...tbody.rows].map(fila => ({
+    nombre: fila.cells[0].textContent.trim(),
+    descripcion: fila.cells[1].textContent.trim(),
+    color: fila.cells[2].textContent.trim()
+  }));
+  let campoOrden = null;
+  let direccion = 1;
+  function esColor(valor) {
+    if (!valor || !valor.trim()) return false;
+    const estilo = new Option().style;
+    estilo.color = '';
+    estilo.color = valor.trim();
+    return estilo.color !== '';
+  }
+  function actualizarOpciones() {
+    const seleccionado = filtro.value;
+    const colores = [...new Set(productos.map(p => p.color).filter(esColor))].sort(collator.compare);
+    filtro.replaceChildren(new Option('Todos los colores', ''));
+    colores.forEach(c => filtro.add(new Option(c, c)));
+    if (colores.includes(seleccionado)) filtro.value = seleccionado;
+  }
+  function celda(texto) {
+    const td = document.createElement('td');
+    td.textContent = texto;
+    return td;
+  }
+  function pintar() {
+    const termino = buscar.value.trim().toLocaleLowerCase('es');
+    const colorSeleccionado = filtro.value;
+    const resultado = productos.filter(p =>
+      (!colorSeleccionado || p.color === colorSeleccionado) &&
+      [p.nombre, p.descripcion, p.color].some(v => v.toLocaleLowerCase('es').includes(termino))
+    );
+    if (campoOrden) resultado.sort((a,b) => collator.compare(a[campoOrden], b[campoOrden]) * direccion);
+    const fragmento = document.createDocumentFragment();
+    resultado.forEach(p => {
+      const fila = document.createElement('tr');
+      fila.append(celda(p.nombre), celda(p.descripcion));
+      const tdColor = document.createElement('td');
+      if (esColor(p.color)) {
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        const muestra = document.createElement('span');
+        muestra.className = 'muestra';
+        muestra.style.backgroundColor = p.color;
+        const texto = document.createElement('span');
+        texto.textContent = p.color;
+        chip.append(muestra, texto);
+        tdColor.append(chip);
+      } else tdColor.textContent = p.color || 'Sin color';
+      fila.append(tdColor);
+      fragmento.append(fila);
+    });
+    tbody.replaceChildren(fragmento);
+    sinResultados.hidden = resultado.length > 0;
+    contador.textContent = `Mostrando ${resultado.length} de ${productos.length} productos`;
+    tabla.querySelectorAll('th').forEach(th => {
+      const clave = th.querySelector('button').dataset.campo;
+      const activo = clave === campoOrden;
+      th.setAttribute('aria-sort', activo ? (direccion === 1 ? 'ascending' : 'descending') : 'none');
+      th.querySelector('.flecha').textContent = activo ? (direccion === 1 ? '↑' : '↓') : '↕';
+    });
+  }
+  tabla.querySelectorAll('.ordenar').forEach(boton => boton.addEventListener('click', () => {
+    const campo = boton.dataset.campo;
+    if (campoOrden === campo) direccion *= -1;
+    else {campoOrden = campo; direccion = 1;}
+    pintar();
+  }));
+  buscar.addEventListener('input', pintar);
+  filtro.addEventListener('change', pintar);
+  document.getElementById('limpiar').addEventListener('click', () => {
+    buscar.value = ''; filtro.value = ''; campoOrden = null; direccion = 1; pintar();
+  });
+  // Permite actualizar el catálogo dinámicamente desde otro script.
+  window.actualizarProductos = nuevos => {
+    productos = nuevos.map(p => ({nombre: String(p.nombre ?? ''), descripcion: String(p.descripcion ?? ''), color: String(p.color ?? '')}));
+    actualizarOpciones(); pintar();
+  };
+  actualizarOpciones(); pintar();
+})();
+</script>
+</body>
+</html>

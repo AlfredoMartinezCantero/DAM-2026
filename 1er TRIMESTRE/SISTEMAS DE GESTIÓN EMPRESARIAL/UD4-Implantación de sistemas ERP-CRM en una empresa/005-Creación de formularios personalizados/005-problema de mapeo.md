@@ -22,6 +22,8 @@ INT / INTEGER	4 bytes	Entero estándar
 BIGINT	8 bytes	Entero grande
 BOOL / BOOLEAN	1 byte	Alias de TINYINT(1)
 
+quiero mapear los tipos numericos con propiedades max y in
+
 Los enteros admiten SIGNED (con signo) y UNSIGNED (sin signo).
 2. Tipos numéricos decimales
 Tipo	Descripción
@@ -32,6 +34,9 @@ REAL	Normalmente sinónimo de DOUBLE
 DECIMAL(M,D)	Decimal exacto de precisión definida
 NUMERIC(M,D)	Sinónimo de DECIMAL
 
+Quiero mapear los tipos decimales con propiedades max, min y step
+
+
 Para almacenar precios y cantidades monetarias, normalmente se utiliza DECIMAL(10,2).
 3. Tipos de cadenas de texto
 Tipo	Descripción
@@ -41,8 +46,14 @@ TINYTEXT	Texto de hasta 255 bytes
 TEXT	Texto de hasta 65.535 bytes
 MEDIUMTEXT	Texto de hasta 16 MB aproximadamente
 LONGTEXT	Texto de hasta 4 GB aproximadamente
+
+Quiero implementar los tipos de datos de texto como input type text con maxlength
+
+
 ENUM	Un valor de una lista predefinida
+quiero implementar enum como input radio
 SET	Varios valores de una lista predefinida
+quiero implementar set como input checkbox
 
 4. Tipos de fecha y hora
 Tipo	Formato habitual	Descripción
@@ -51,6 +62,8 @@ TIME	HH:MM:SS	Hora o duración
 DATETIME	YYYY-MM-DD HH:MM:SS	Fecha y hora
 TIMESTAMP	YYYY-MM-DD HH:MM:SS	Marca temporal con conversión de zona horaria
 YEAR	YYYY	Año
+
+quiero implementar estos campos como nativos
 
 5. Tipos binarios
 Tipo	Descripción
@@ -61,6 +74,7 @@ BLOB	Binario de hasta 65.535 bytes
 MEDIUMBLOB	Binario de hasta 16 MB aproximadamente
 LONGBLOB	Binario de hasta 4 GB aproximadamente
 BIT(n)	Campo de bits
+quiero implementar estos campos como input type file con sus limitaciones
 
 6. Tipos espaciales (GIS)
 Tipo	Descripción

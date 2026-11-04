@@ -8,5 +8,5 @@ select - enumeracion
 progress - valor
 checkbox - enum multiple
 radio - enum multiple unica
-datalsit - enumeracion
+datalist enumeracion
 textarea - texto grande

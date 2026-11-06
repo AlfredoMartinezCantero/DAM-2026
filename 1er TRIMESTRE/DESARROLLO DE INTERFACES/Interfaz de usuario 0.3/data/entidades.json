@@ -1,0 +1,21 @@
+[
+  {
+    "texto": "Listado",
+    "activo": true
+  },
+  {
+    "texto": "Nuevo registro"
+  },
+  {
+    "texto": "Formulario"
+  },
+  {
+    "texto": "Login"
+  },
+  {
+    "texto": "Toasts"
+  },
+  {
+    "texto": "Modal / paneles"
+  }
+]

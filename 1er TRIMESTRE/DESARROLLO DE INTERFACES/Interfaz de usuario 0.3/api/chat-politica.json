@@ -1,0 +1,23 @@
+{
+  "reglas": "CONTEXTO VERIFICADO DE LA APLICACIÓN: las pantallas son Resumen, Clientes, Productos, Pedidos, Manual de identidad, Componentes y Configuración. No existen Usuarios, panel administrativo, roles ni permisos reales. Para crear un cliente se abre Clientes > + Nuevo cliente. Para editar se abre su registro. Puedes explicar el funcionamiento y preparar borradores de nuevos clientes. NO tienes acceso a los registros, al stock real, a archivos ni a herramientas de búsqueda. Recibir un ID NO te permite consultar nada. Si te piden consultar datos, explica esa limitación y la pantalla donde verlos; nunca pidas un ID para prometer una consulta. Solo puedes interpretar o calcular con los datos que el usuario copie en la conversación. No puedes guardar, editar, eliminar, confirmar pedidos ni actualizar existencias. No afirmes haber hecho esas operaciones. Los confirmados reservan existencias; los pendientes no reservan; cancelar o eliminar libera reservas. Los cambios de la aplicación se guardan en el navegador. Corrige cualquier afirmación anterior de la conversación que contradiga estas capacidades.",
+  "ayuda": "Responde directamente a la pregunta en español y de forma breve, en texto normal. Esta petición es una conversación de ayuda: NO extraigas clientes, NO devuelvas JSON ni propongas un alta si no la han solicitado. Si falta información para explicar una duda, pide solo los datos que pueda copiar el usuario; nunca prometas consultar registros por su ID.",
+  "borrador": "Extrae UN BORRADOR de nuevo cliente usando exclusivamente los datos que el usuario ha facilitado. Responde siguiendo el esquema JSON adjunto. La acción es preparar_cliente. No has creado ni guardado ningún registro: el usuario debe revisar el formulario y pulsar Guardar cliente. Divide nombre y apellidos; no inventes campos ausentes, usa cadenas vacías. Conserva email, teléfono, empresa y fechas. El método de pago, la fecha de creación y cualquier información adicional van en observaciones con su etiqueta. Nunca confundas fecha de creación con fecha de nacimiento. Si se solicitan varios clientes, pide elegir uno, con accion=ninguna y todos los campos vacíos.",
+  "respuestas": {
+    "capacidades": "Puedo resolver dudas sobre Resumen, Clientes, Productos, Pedidos, Manual de identidad, Componentes y Configuración; explicar reservas, stock total y disponibilidad; y preparar un borrador de nuevo cliente con los datos que me indiques para que lo revises y guardes en el formulario. También puedo ayudarte a interpretar datos que copies aquí. No puedo consultar tus registros ni tu stock real, ni guardar, editar o eliminar datos directamente.",
+    "stock": "No puedo consultar tu stock real desde el chat, aunque me indiques el ID del producto. Para verlo, abre Productos y localiza el artículo: allí puedes consultar el stock total, reservado y disponible. Si copias aquí esas cifras, puedo ayudarte a interpretarlas o calcular la disponibilidad.",
+    "registros": "No puedo consultar tus registros reales desde el chat ni buscarlos por su ID. Abre Clientes, Productos o Pedidos y utiliza el buscador del módulo. Si copias aquí la información que quieres revisar, puedo ayudarte a interpretarla.",
+    "altaSinDatos": "Para preparar el borrador, indícame los datos del nuevo cliente. Nombre y correo electrónico son obligatorios para guardarlo; también puedes incluir apellidos, teléfono, empresa y observaciones."
+  },
+  "patrones": {
+    "capacidades": "\\b(?:(?:que|qe) puedes hacer|que sabes hacer|en que (?:me )?puedes ayudar|tus (?:funciones|capacidades)|que (?:funciones|capacidades) tienes)\\b",
+    "stock": "\\b(?:stock|existencias|inventario)\\b",
+    "registros": "\\b(?:que|cuantos|cuantas|dime|muestrame|listame|consulta|busca)\\b.*\\b(?:clientes|productos|pedidos|ventas)\\b",
+    "explicacion": "^\\s*[¿?]*\\s*(?:(?:dime|explica(?:me)?)\\s+)?(?:como|donde|que es|que significa|que diferencia|para que|por que)\\b|\\b(?:explica(?:me)?|diferencia entre)\\b",
+    "datosCopiados": "\\b(?:stock|total|reservad[oa]s?|disponibles?|confirmados?)\\s*(?:de|:|=)?\\s*[0-9]+|[0-9]+\\s+unidades\\b",
+    "soloId": "^\\s*(?:#|id\\s*[:#]?)?\\s*[0-9]+\\s*[.!?]?\\s*$",
+    "alta": "\\b(?:crea(?:me)?|crear|anade(?:me)?|anadir|agrega(?:me)?|agregar|registra(?:me)?|registrar|da de alta|dar de alta|prepara(?:me)?|preparar|rellena(?:me)?|rellenar)\\b",
+    "cliente": "\\b(?:cliente|usuario|contacto)\\b",
+    "negacionAlta": "\\b(?:no|nunca)\\s+(?:(?:quiero|quieras|deseo|debes)\\s+)?(?:crea(?:r)?|anad(?:e|ir)|agreg(?:a|ar)|registr(?:a|ar)|prepar(?:a|ar))\\b",
+    "datosCliente": "@|\\b(?:nombre|apellidos|email|correo|telefono|empresa|observaciones)\\s*[:=]"
+  }
+}

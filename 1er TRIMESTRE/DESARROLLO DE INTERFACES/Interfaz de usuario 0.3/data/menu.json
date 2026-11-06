@@ -1,0 +1,37 @@
+[
+  {
+    "id": "resumen",
+    "texto": "Resumen",
+    "url": "#resumen"
+  },
+  {
+    "id": "clientes",
+    "texto": "Clientes",
+    "url": "#clientes"
+  },
+  {
+    "id": "productos",
+    "texto": "Productos",
+    "url": "#productos"
+  },
+  {
+    "id": "pedidos",
+    "texto": "Pedidos",
+    "url": "#pedidos"
+  },
+  {
+    "id": "identidad",
+    "texto": "Manual de identidad",
+    "url": "#identidad"
+  },
+  {
+    "id": "componentes",
+    "texto": "Componentes",
+    "url": "#componentes"
+  },
+  {
+    "id": "configuracion",
+    "texto": "Configuración",
+    "url": "#configuracion"
+  }
+]

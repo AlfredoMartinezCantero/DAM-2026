@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Uvas</title>
+  <rect width="64" height="64" rx="32" fill="#ede9fe"/>
+  <path d="M32 23c0-7 3-11 9-13" fill="none" stroke="#211331" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32 20c-1-8-8-10-15-6 2 6 7 9 15 6Z" fill="#a78bfa"/>
+  <circle cx="24" cy="28" r="7" fill="#7c3aed"/>
+  <circle cx="40" cy="28" r="7" fill="#5b21b6"/>
+  <circle cx="24" cy="42" r="7" fill="#5b21b6"/>
+  <circle cx="40" cy="42" r="7" fill="#7c3aed"/>
+  <circle cx="32" cy="53" r="6" fill="#5b21b6"/>
+</svg>

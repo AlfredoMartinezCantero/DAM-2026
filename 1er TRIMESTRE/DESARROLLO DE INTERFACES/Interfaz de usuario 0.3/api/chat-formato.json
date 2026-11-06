@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["respuesta", "accion", "cliente"],
+  "properties": {
+    "respuesta": { "type": "string", "description": "Respuesta breve en español. Si preparas un borrador, indica únicamente que debe revisarse y guardarse en el formulario, sin repetir todos los datos." },
+    "accion": { "type": "string", "enum": ["ninguna", "preparar_cliente"], "description": "Usa ninguna al resolver dudas, por ejemplo: ¿Cómo creo un cliente? Respuesta: Abre Clientes, pulsa + Nuevo cliente, completa nombre y email y pulsa Crear. Usa preparar_cliente solo cuando el usuario pide dar de alta un cliente concreto con datos para rellenar un borrador." },
+    "cliente": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nombre", "apellidos", "email", "telefono", "empresa", "observaciones"],
+      "properties": {
+        "nombre": { "type": "string", "description": "Nombre de pila, separado de los apellidos. Ejemplo: Lucía Pérez Gómez da nombre Lucía." },
+        "apellidos": { "type": "string", "description": "Apellidos separados del nombre de pila. Ejemplo: Lucía Pérez Gómez da apellidos Pérez Gómez." },
+        "email": { "type": "string" },
+        "telefono": { "type": "string" },
+        "empresa": { "type": "string" },
+        "observaciones": { "type": "string", "description": "Toda la información adicional facilitada: método de pago, fecha de creación y otros datos, conservando sus etiquetas y valores. Nunca inventes datos." }
+      }
+    }
+  }
+}

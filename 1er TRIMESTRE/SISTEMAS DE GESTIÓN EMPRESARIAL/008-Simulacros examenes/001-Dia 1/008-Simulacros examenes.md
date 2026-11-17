@@ -47,4 +47,26 @@ Texto
 
 
 4.5 posts para Servicios y procesos
+Workers en JS
+Cachos procesamiento de imagen en bloques mononucleo y workers - POST SEGURISIMO
+Workers para multiples "bichos" en pantalla
+Lo de que un maestro reparte, calculamos en vuestros equipos y me devolvisteis los calculos
+Aprendimos C++
+Continuamos con C++ - OpenCV para dibujar en C++ - OPenMP para calculo multinucleo
+Transformer personalizado
+Creamos nuestro propio sistema de embeddings
 
+Comunicacion rudimentaria
+Cliente y servidor chat
+Servidor web propio en C
+Comunicación contínua mediante sockets
+WebSockets
+Consumición de API (el tiempo)
+Websockets lienzo colaborativo
+
+
+
+En el examen no se programa, en el examen solo se documenta lo que has programado
+En el examen se puede traer un esquema, una escaleta, unos bullets
+Pero no se puede traer ni el texto ya redactado ni el video ya hecho
+Para el texto no se puede utilizar IA

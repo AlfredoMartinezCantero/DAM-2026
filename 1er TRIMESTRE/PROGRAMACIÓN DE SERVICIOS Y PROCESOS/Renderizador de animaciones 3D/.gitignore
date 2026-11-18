@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+datos/
+cache/
+resultados/
+escenas/
+*.blend1

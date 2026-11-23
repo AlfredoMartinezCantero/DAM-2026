@@ -1,0 +1,22 @@
+Datos de prueba (copia temporal):
+[
+  {
+    "indicador": "Clientes",
+    "valor": "62"
+  },
+  {
+    "indicador": "Cartera de pedidos",
+    "valor": "3.097.000.037,05 EUR"
+  },
+  {
+    "indicador": "Oportunidades abiertas",
+    "valor": "1"
+  },
+  {
+    "indicador": "Alertas de stock",
+    "valor": "2"
+  }
+]
+
+Respuesta generada por phi4-mini:latest:
+Indicadores disponibles: 1. Clientes: 62 2. Carteras de pedidos: 3.097.000.037,05 EUR

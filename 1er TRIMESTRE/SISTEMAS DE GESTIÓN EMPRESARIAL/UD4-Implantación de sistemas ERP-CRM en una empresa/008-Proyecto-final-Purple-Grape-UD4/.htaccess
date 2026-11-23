@@ -1,0 +1,8 @@
+Options -Indexes
+RewriteEngine On
+RewriteRule ^(data|var|config|tests|sql|docs|util)(/|$) - [F,L]
+RewriteRule ^api/(bootstrap|metadatos|procesos|ia)\.php$ - [F,L]
+<FilesMatch "^\.">
+ Require all denied
+</FilesMatch>
+

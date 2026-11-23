@@ -1,0 +1,104 @@
+ajustes
+-clave: TEXT
+-valor: TEXT
+
+auditoria
+-identificador: INTEGER
+-fecha: TEXT
+-accion: TEXT
+-entidad: TEXT
+-registro: TEXT
+-detalle: TEXT
+
+campos_personalizados
+-entidad: TEXT
+-nombre: TEXT
+-definicion: TEXT
+-tabla_nueva: INTEGER
+
+clientes
+-nombre: TEXT
+-pais: TEXT
+-telefono: TEXT
+-email: TEXT
+-identificador: INTEGER
+-apellidos: TEXT
+-segmento: TEXT
+-activo: INTEGER
+
+componentes
+-nombre: TEXT
+-tipo: TEXT
+-proveedor_id: INTEGER
+-precio: REAL
+-stock: INTEGER
+-identificador: INTEGER
+-stock_minimo: INTEGER
+
+empleados
+-nombre: TEXT
+-apellidos: TEXT
+-departamento: TEXT
+-puesto: TEXT
+-salario: REAL
+-identificador: INTEGER
+
+facturas
+-identificador: INTEGER
+-numero: TEXT
+-pedido_id: INTEGER
+-cliente: TEXT
+-fecha: TEXT
+-base_centimos: INTEGER
+-iva_centimos: INTEGER
+-total_centimos: INTEGER
+-estado: TEXT
+-referencia_externa: TEXT
+
+integraciones_log
+-identificador: INTEGER
+-fecha: TEXT
+-factura_id: INTEGER
+-estado: TEXT
+-mensaje: TEXT
+
+lineaspedido
+-pedido_id: INTEGER
+-producto_id: INTEGER
+-cantidad: INTEGER
+-precio_unitario: REAL
+-identificador: INTEGER
+
+oportunidades
+-identificador: INTEGER
+-nombre: TEXT
+-cliente_id: INTEGER
+-valor: REAL
+-etapa: TEXT
+-fecha_cierre: TEXT
+-notas: TEXT
+
+pedidos
+-fecha: TEXT
+-estado: TEXT
+-cliente_id: INTEGER
+-total: REAL
+-identificador: INTEGER
+-prioridad: TEXT
+-notas: TEXT
+-fecha_entrega: TEXT
+
+productos
+-nombre: TEXT
+-tipo: TEXT
+-precio: REAL
+-capacidad: INTEGER
+-autonomia: INTEGER
+-identificador: INTEGER
+
+proveedores
+-nombre: TEXT
+-pais: TEXT
+-especialidad: TEXT
+-email: TEXT
+-identificador: INTEGER

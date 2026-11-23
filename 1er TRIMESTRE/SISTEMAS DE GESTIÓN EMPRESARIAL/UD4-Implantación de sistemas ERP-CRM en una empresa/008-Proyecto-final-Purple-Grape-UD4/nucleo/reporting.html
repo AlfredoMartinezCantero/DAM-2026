@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Informes · Purple Grape</title><link rel="icon" href="../marca.svg"><link rel="stylesheet" href="../estilo.css"><link rel="stylesheet" href="reporting.css"></head>
+<body>
+ <nav class="herramientas no-imprimir" aria-label="Acciones del informe"><a href="../index.html#informes">Volver al ERP</a><button id="imprimir" type="button" disabled>Imprimir / Guardar PDF</button></nav>
+ <main class="documento">
+  <header class="informe-cabecera"><img src="../marca.svg" width="48" alt=""><div><p id="empresa">Purple Grape · Informes</p><h1 id="titulo">Informe completo de la empresa</h1><p id="fecha"></p></div></header>
+  <p id="estado" role="status">Cargando datos…</p>
+  <section id="graficas" class="cuadricula-panel" aria-label="Gráficos de registros por entidad"></section>
+  <div id="tablas"></div>
+ </main>
+ <script src="tabla.js"></script><script src="graficas.js"></script><script src="reporting.js"></script>
+</body></html>
+

@@ -17,7 +17,6 @@ from websockets.exceptions import ConnectionClosed, InvalidHandshake
 
 from protocolo import (BASE, MAX_MESSAGE, MAX_PNG, MAX_SCENE, atomic_write,
                        decode, digest, encode, message, send, validate_png, validate_spec)
-from paquetes import PackageReceiver, extract_package
 
 
 async def stop_process(process):
@@ -60,18 +59,6 @@ async def render(job, args):
             if not scene.is_file() or digest(scene.read_bytes()) != spec["scene_sha"]:
                 raise ValueError("Falta la escena .blend o su copia está dañada")
             command.extend(["--scene", str(scene.resolve())])
-        elif spec["source"] == "package":
-            cached = getattr(args, "packages", {}).get(spec["scene_sha"])
-            if cached is None:
-                raise ValueError("La escena y su caché todavía no se han recibido")
-            root, manifest = cached
-            if not manifest["start"] <= frame <= manifest["end"] or spec["fps"] != manifest["fps"]:
-                raise ValueError("El fotograma o FPS no coinciden con la simulación horneada")
-            baked_version = re.search(r"\d+\.\d+", manifest.get("blender_version", ""))
-            local_version = re.search(r"\d+\.\d+", args.blender_version)
-            if baked_version and local_version and baked_version.group() != local_version.group():
-                raise ValueError("Utiliza la misma versión mayor y menor de Blender que la simulación")
-            command.extend(["--scene", str(root / "scene.blend"), "--resource-root", str(root)])
         log_path = logs / (job["assignment"] + ".log")
         try:
             with log_path.open("wb") as log:
@@ -104,8 +91,6 @@ async def work_session(ws, args):
     print(f"Conectado: {args.name} | {args.slots} renders simultáneos | "
           f"{args.blender_version}", flush=True)
     active = {}
-    args.packages = {}
-    receiver = PackageReceiver(args.cache / "escenas")
 
     async def process(job):
         response = {"id": job["id"], "assignment": job["assignment"]}
@@ -142,17 +127,7 @@ async def work_session(ws, args):
                 payload = message(receive_task.result())
                 if payload.get("type") == "error":
                     raise ValueError(payload.get("error", "Petición rechazada"))
-                if payload.get("type") == "asset_begin":
-                    receiver.begin(payload)
-                elif payload.get("type") == "asset_chunk":
-                    receiver.chunk(payload)
-                elif payload.get("type") == "asset_end":
-                    path = receiver.finish()
-                    extracted = await asyncio.to_thread(extract_package, path, args.cache / "paquetes")
-                    args.packages[path.stem] = extracted
-                    await send(ws, {"type": "asset_ready", "sha256": path.stem})
-                    print("Escena y caché recibidas y verificadas", flush=True)
-                elif payload.get("type") == "scene":
+                if payload.get("type") == "scene":
                     data = decode(payload.get("data"), MAX_SCENE)
                     checksum = digest(data)
                     if checksum != payload.get("sha256"):
@@ -164,7 +139,6 @@ async def work_session(ws, args):
                     active[payload["assignment"]] = asyncio.create_task(process(payload))
                 receive_task = asyncio.create_task(ws.recv())
     finally:
-        receiver.abort()
         tasks = [receive_task, heartbeat_task, *active.values()]
         for task in tasks:
             task.cancel()

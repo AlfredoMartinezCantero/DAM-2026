@@ -44,13 +44,13 @@ def validate_spec(spec):
             raise ValueError(f"{key} debe estar entre {low} y {high}")
     if not 1 <= spec["end"] - spec["start"] + 1 <= 1000:
         raise ValueError("Una animación admite de 1 a 1000 fotogramas consecutivos")
-    if spec["source"] not in ("demo", "blend", "package"):
+    if spec["source"] not in ("demo", "blend"):
         raise ValueError("Origen de escena desconocido")
     if not isinstance(spec["scene_sha"], str):
         raise ValueError("Huella de escena inválida")
-    if spec["source"] in ("blend", "package"):
+    if spec["source"] == "blend":
         if not re.fullmatch(r"[0-9a-f]{64}", spec["scene_sha"]):
-            raise ValueError("Falta la huella SHA256 de la escena o paquete")
+            raise ValueError("Falta la huella SHA256 de la escena")
     elif spec["scene_sha"]:
         raise ValueError("La demostración no necesita archivo .blend")
     return spec

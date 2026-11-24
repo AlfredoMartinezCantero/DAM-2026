@@ -20,7 +20,6 @@ from protocolo import (BASE, MAX_MESSAGE, MAX_PNG, MAX_SCENE, atomic_write, cano
                        decode, digest, encode, frame_path, job_id, message, send,
                        validate_name, validate_png, validate_spec)
 import json
-from paquetes import PackageReceiver, send_package
 
 
 @dataclass
@@ -32,7 +31,6 @@ class Client:
     version: str = ""
     assigned: dict = field(default_factory=dict)
     assets: set = field(default_factory=set)
-    pending_asset: str = ""
     seen: float = field(default_factory=time.time)
 
 
@@ -67,8 +65,8 @@ class Broker:
             raise ValueError("Animación desconocida")
         return json.loads(row[0])
 
-    def scene_path(self, checksum, source="blend"):
-        return self.args.data / "escenas" / (checksum + (".zip" if source == "package" else ".blend"))
+    def scene_path(self, checksum):
+        return self.args.data / "escenas" / (checksum + ".blend")
 
     def png_path(self, run_id, frame):
         return frame_path(self.args.data / "fotogramas" / run_id, frame)
@@ -130,7 +128,7 @@ class Broker:
                 notifications.append(self.db.execute("SELECT * FROM jobs WHERE id=?", (row["id"],)).fetchone())
             self.db.commit()
             for ws, client in list(self.clients.items()):
-                if client.role != "slave" or ws in expired_clients or client.pending_asset:
+                if client.role != "slave" or ws in expired_clients:
                     continue
                 while len(client.assigned) < client.capacity:
                     row = self.db.execute("""SELECT jobs.*,runs.spec FROM jobs JOIN runs
@@ -141,14 +139,9 @@ class Broker:
                     spec = json.loads(row["spec"])
                     try:
                         if spec["scene_sha"] and spec["scene_sha"] not in client.assets:
-                            path = self.scene_path(spec["scene_sha"], spec["source"])
-                            if spec["source"] == "package":
-                                client.pending_asset = spec["scene_sha"]
-                                await send_package(ws, path, spec["scene_sha"], send)
-                                break  # Asignar el primer frame cuando confirme la extracción.
-                            else:
-                                data = path.read_bytes()
-                                await send(ws, {"type": "scene", "sha256": spec["scene_sha"], "data": encode(data)})
+                            path = self.scene_path(spec["scene_sha"])
+                            data = path.read_bytes()
+                            await send(ws, {"type": "scene", "sha256": spec["scene_sha"], "data": encode(data)})
                             client.assets.add(spec["scene_sha"])
                         assignment = uuid.uuid4().hex
                         with self.db:
@@ -177,8 +170,8 @@ class Broker:
         if (not isinstance(frames, list) or not 1 <= len(frames) <= 10
                 or any(type(frame) is not int or not spec["start"] <= frame <= spec["end"] for frame in frames)):
             raise ValueError("Envía entre 1 y 10 fotogramas válidos por lote")
-        if spec["scene_sha"] and not self.scene_path(spec["scene_sha"], spec["source"]).is_file():
-            raise ValueError("Primero debe enviarse la escena o paquete")
+        if spec["scene_sha"] and not self.scene_path(spec["scene_sha"]).is_file():
+            raise ValueError("Primero debe enviarse la escena")
         with self.db:
             for frame in frames:
                 self.db.execute("INSERT OR IGNORE INTO jobs(id,run_id,frame,updated) VALUES (?,?,?,?)",
@@ -220,7 +213,6 @@ class Broker:
 
     async def handle(self, ws):
         client = None
-        receiver = PackageReceiver(self.args.data / "escenas")
         try:
             hello = message(await asyncio.wait_for(ws.recv(), 15))
             role, token = hello.get("role"), hello.get("token", "")
@@ -252,7 +244,7 @@ class Broker:
             spec = self.spec(client.run_id) if role == "master" else None
             await send(ws, {"type": "registered", "heartbeat_s": max(1, min(10, self.args.lease / 3)),
                             "needs_scene": bool(spec and spec["scene_sha"]
-                                                and not self.scene_path(spec["scene_sha"], spec["source"]).is_file())})
+                                                and not self.scene_path(spec["scene_sha"]).is_file())})
             print(f"Conectado {role}: {client.name}", flush=True)
             if role == "master":
                 await self.replay(ws, client.run_id)
@@ -261,19 +253,9 @@ class Broker:
                 payload = message(raw)
                 kind = payload.get("type")
                 client.seen = time.time()
-                if role == "master" and kind == "asset_begin":
-                    spec = self.spec(client.run_id)
-                    if spec["source"] != "package":
-                        raise ValueError("La animación no utiliza un paquete")
-                    receiver.begin(payload, expected=spec["scene_sha"])
-                elif role == "master" and kind == "asset_chunk":
-                    receiver.chunk(payload)
-                elif role == "master" and kind == "asset_end":
-                    receiver.finish()
-                    await send(ws, {"type": "scene_ready"})
-                elif role == "master" and kind == "scene":
+                if role == "master" and kind == "scene":
                     if self.spec(client.run_id)["source"] != "blend":
-                        raise ValueError("La animación requiere un paquete de recursos")
+                        raise ValueError("La animación no utiliza un archivo .blend")
                     data = decode(payload.get("data"), MAX_SCENE)
                     checksum = self.spec(client.run_id)["scene_sha"]
                     if not checksum or digest(data) != checksum:
@@ -300,12 +282,6 @@ class Broker:
                         self.db.executemany("UPDATE jobs SET lease=? WHERE assignment=? AND status='running'",
                                             [(time.time() + self.args.lease, value)
                                              for value in set(assignments) & set(client.assigned.values())])
-                elif role == "slave" and kind == "asset_ready":
-                    if not client.pending_asset or payload.get("sha256") != client.pending_asset:
-                        raise ValueError("Confirmación de paquete inesperada")
-                    client.assets.add(client.pending_asset)
-                    client.pending_asset = ""
-                    await self.schedule()
                 elif role == "slave" and kind in ("result", "failed"):
                     await self.accept_result(client, payload)
                 else:
@@ -319,7 +295,6 @@ class Broker:
         except (ConnectionClosed, TimeoutError):
             pass
         finally:
-            receiver.abort()
             self.clients.pop(ws, None)
             if client:
                 with self.db:

@@ -20,28 +20,20 @@ from websockets.exceptions import ConnectionClosed, InvalidHandshake
 from protocolo import (BASE, MAX_MESSAGE, MAX_PNG, MAX_SCENE, VERSION, atomic_write,
                        canonical, decode, digest, encode, frame_path, job_id, message,
                        send, validate_name, validate_png, validate_spec)
-from paquetes import MAX_PACKAGE, file_digest, send_package, validate_package_render
 
 
 def build_spec(args):
     checksum = ""
-    package = getattr(args, "package", None)
-    if package:
-        if not package.is_file() or not 0 < package.stat().st_size <= MAX_PACKAGE:
-            raise ValueError("--package debe indicar un paquete ZIP de hasta 512 MiB")
-        checksum = file_digest(package)
-    elif args.scene:
+    if args.scene:
         if not args.scene.is_file() or args.scene.suffix.lower() != ".blend":
             raise ValueError("--scene debe indicar un archivo .blend existente")
         if not 0 < args.scene.stat().st_size <= MAX_SCENE:
             raise ValueError("La escena .blend debe ocupar entre 1 byte y 32 MiB")
         checksum = digest(args.scene.read_bytes())
-    spec = validate_spec({"version": VERSION, "source": "package" if package else "blend" if args.scene else "demo",
+    spec = validate_spec({"version": VERSION, "source": "blend" if args.scene else "demo",
                          "scene_sha": checksum, "start": args.start, "end": args.end,
                          "fps": args.fps, "width": args.width, "height": args.height,
                          "samples": args.samples})
-    if package:
-        validate_package_render(package, spec)
     return spec
 
 
@@ -123,17 +115,11 @@ async def distribute(args, db, run_id, spec, folder):
                 if hello.get("type") != "registered":
                     raise ValueError(hello.get("error", "Registro rechazado"))
                 if hello.get("needs_scene"):
-                    if spec["source"] == "package":
-                        if file_digest(args.package) != spec["scene_sha"]:
-                            raise ValueError("El paquete cambió desde el inicio")
-                        await send_package(ws, args.package, spec["scene_sha"], send)
-                        print("Escena y caché enviadas al servidor", flush=True)
-                    else:
-                        data = args.scene.read_bytes()
-                        if digest(data) != spec["scene_sha"]:
-                            raise ValueError("La escena cambió desde el inicio; crea otra ejecución")
-                        await send(ws, {"type": "scene", "data": encode(data)})
-                        print("Escena enviada al servidor", flush=True)
+                    data = args.scene.read_bytes()
+                    if digest(data) != spec["scene_sha"]:
+                        raise ValueError("La escena cambió desde el inicio; crea otra ejecución")
+                    await send(ws, {"type": "scene", "data": encode(data)})
+                    print("Escena enviada al servidor", flush=True)
                 submitted = set()
                 pending = iter(frames)
                 next_frame = next(pending, None)
@@ -248,9 +234,7 @@ def parse_args():
     parser.add_argument("--server", default="ws://127.0.0.1:8775")
     parser.add_argument("--token", default=os.environ.get("RENDER_TOKEN", ""))
     parser.add_argument("--run-id")
-    sources = parser.add_mutually_exclusive_group()
-    sources.add_argument("--scene", type=Path, help="Escena .blend; por defecto, demo orbital")
-    sources.add_argument("--package", type=Path, help="Paquete ZIP con escena y caché horneada")
+    parser.add_argument("--scene", type=Path, help="Escena .blend; por defecto, demo orbital")
     parser.add_argument("--start", type=int, default=1)
     parser.add_argument("--end", type=int, default=48)
     parser.add_argument("--fps", type=int, default=24)

@@ -91,18 +91,9 @@ def main():
     parser.add_argument("--samples", type=int, required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--scene")
-    parser.add_argument("--resource-root")
     args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
     if args.scene:
         bpy.ops.wm.open_mainfile(filepath=args.scene, load_ui=False, use_scripts=False)
-        if args.resource_root:
-            cache = Path(args.resource_root).resolve() / "cache"
-            if not cache.is_dir():
-                raise ValueError("Falta la caché de simulación del paquete")
-            for obj in bpy.data.objects:
-                for modifier in obj.modifiers:
-                    if modifier.type == "FLUID" and modifier.fluid_type == "DOMAIN":
-                        modifier.domain_settings.cache_directory = str(cache)
     else:
         phase = 2 * math.pi * (args.frame - args.start) / (args.end - args.start + 1)
         demo(bpy, phase)

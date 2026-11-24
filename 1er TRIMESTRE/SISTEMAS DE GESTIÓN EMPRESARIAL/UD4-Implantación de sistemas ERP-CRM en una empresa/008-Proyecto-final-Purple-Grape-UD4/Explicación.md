@@ -23,13 +23,13 @@ La aplicación necesita ejecutar PHP para consultar y guardar los datos. Abrir i
 
 ### 2.1. Entrar en la carpeta correcta
 
-Antes de iniciar los servidores, abre una terminal y ejecuta:
+Antes de iniciar los servidores, se abre una terminal y se ejecuta:
 
 ~~~bash
 cd "/var/www/html/DAM-2026/DAM-2026/1er TRIMESTRE/SISTEMAS DE GESTIÓN EMPRESARIAL/UD4-Implantación de sistemas ERP-CRM en una empresa/008-Proyecto-final-Purple-Grape-UD4"
 ~~~
 
-Todos los comandos de arranque siguientes se ejecutan desde esta carpeta. Puedes comprobar que estás en el lugar correcto con:
+Todos los comandos de arranque siguientes se ejecutan desde esta carpeta. Se puede comprobar que la carpeta de trabajo es correcta con:
 
 ~~~bash
 pwd
@@ -42,25 +42,25 @@ ls router.php
 php -S 127.0.0.1:8084 router.php
 ~~~
 
-Después, abre **http://127.0.0.1:8084/** en el navegador y deja la terminal abierta.
+Después, se abre **http://127.0.0.1:8084/** en el navegador y se mantiene la terminal abierta.
 
 La base data/purplegrape.db ya está incluida y preparada. No hay que reinstalarla para empezar.
 
-Si ya utilizas el ERP mediante Apache con PHP y la configuración del proyecto, puedes seguir accediendo por esa dirección.
+Si ya se utiliza el ERP mediante Apache con PHP y la configuración del proyecto, se puede seguir accediendo por esa dirección.
 
 ### 2.3. Iniciar el sistema contable
 
-Para enviar facturas hace falta el segundo servicio. Abre otra terminal, entra en la misma carpeta del proyecto y ejecuta:
+Para enviar facturas hace falta el segundo servicio. Se abre otra terminal, se accede a la misma carpeta del proyecto y se ejecuta:
 
 ~~~bash
 php -S 127.0.0.1:8085 router.php
 ~~~
 
-Deja también esta terminal abierta. En **Integración contable**, pulsa **Actualizar estado** y comprueba que aparece **Conectado · sqlite**, o mysql si has configurado ese motor.
+También se mantiene esta terminal abierta. En **Integración contable**, se pulsa **Actualizar estado** y se comprueba que aparece **Conectado · sqlite**, o mysql si se ha configurado ese motor.
 
 Se utilizan dos procesos porque el ERP envía una petición HTTP al sistema contable. El servidor PHP de desarrollo, en su configuración habitual de un solo proceso, no puede atender una segunda petición mientras está esperando que termine la primera.
 
-Si ejecutas el comando desde una carpeta como /home/alfredo, el servidor no encontrará el router.php del proyecto. Puede arrancar, pero devolver un error al intentar atender las peticiones.
+Si se ejecuta el comando desde una carpeta como /home/alfredo, el servidor no encontrará el router.php del proyecto. Puede arrancar, pero devolver un error al intentar atender las peticiones.
 
 ## 3. Cómo moverse y trabajar con los registros
 
@@ -70,12 +70,12 @@ La primera columna contiene los módulos y herramientas. Al abrir un módulo de 
 
 En las entidades editables:
 
-1. Abre **Crear / editar registro**.
-2. Completa los campos. Los que llevan un asterisco son obligatorios.
-3. Pulsa **Crear registro**.
-4. Para modificar una fila, pulsa **Editar**, cambia los datos y usa **Guardar cambios**.
-5. Usa **Nuevo / Cancelar edición** para limpiar el formulario y empezar otro registro.
-6. Para borrar una fila, pulsa **Eliminar** y confirma la acción.
+1. Se abre **Crear / editar registro**.
+2. Se completan los campos. Los que llevan un asterisco son obligatorios.
+3. Se pulsa **Crear registro**.
+4. Para modificar una fila, se pulsa **Editar**, se cambian los datos y se utiliza **Guardar cambios**.
+5. Se utiliza **Nuevo / Cancelar edición** para limpiar el formulario y empezar otro registro.
+6. Para borrar una fila, se pulsa **Eliminar** y se confirma la acción.
 
 El identificador se genera automáticamente. En los campos relacionados se selecciona un registro existente: por ejemplo, el cliente de un pedido o el proveedor de un componente.
 
@@ -96,9 +96,9 @@ Las condiciones disponibles son:
 | <= | Buscar un valor menor o igual. | Precio menor o igual a 100. |
 | LIKE | Buscar un texto que contenga lo escrito. | Nombre que contenga Aero. |
 
-Pulsa **Aplicar consulta** para actualizar los resultados. Las tablas muestran 30 registros por página y tienen botones **Anterior** y **Siguiente**.
+Se pulsa **Aplicar consulta** para actualizar los resultados. Las tablas muestran 30 registros por página y tienen botones **Anterior** y **Siguiente**.
 
-**Exportar consulta CSV** descarga los resultados de los filtros aplicados, hasta 10 000 filas. Si cambias un filtro, aplícalo antes de exportar.
+**Exportar consulta CSV** descarga los resultados de los filtros aplicados, hasta 10 000 filas. Si se cambia un filtro, se aplica antes de exportar.
 
 ## 4. Qué hace cada apartado del menú
 
@@ -121,14 +121,14 @@ El panel inicial contiene tarjetas con importes de pedidos por mes, estados de p
 
 Cada tarjeta tiene un botón **Configurar**:
 
-1. Pulsa **Configurar**.
-2. Cambia su título.
-3. Selecciona la fuente de datos.
-4. Elige barras, tarta, anillo o tabla.
-5. Indica el ancho, de una a tres columnas.
-6. Pulsa **Guardar**.
+1. Se pulsa **Configurar**.
+2. Se cambia su título.
+3. Se selecciona la fuente de datos.
+4. Se elige entre barras, tarta, anillo o tabla.
+5. Se indica el ancho, de una a tres columnas.
+6. Se pulsa **Guardar**.
 
-Puedes usar **Añadir tarjeta** o eliminar alguna de las existentes. El panel admite entre una y doce tarjetas. En pantallas pequeñas, la distribución se adapta al espacio disponible.
+Se puede utilizar **Añadir tarjeta** o eliminar alguna de las existentes. El panel admite entre una y doce tarjetas. En pantallas pequeñas, la distribución se adapta al espacio disponible.
 
 Los cambios se guardan en la base de datos y se conservan al recargar. Los importes grandes pueden aparecer abreviados en los gráficos; las leyendas y los tooltips permiten consultar más detalle.
 
@@ -142,7 +142,7 @@ Agrupa las entidades relacionadas con los clientes y el proceso comercial.
 
 Guarda los datos de contacto: nombre, apellidos, país, teléfono y email. También permite asignar un segmento —Aerolínea, Distribuidor o Particular— e indicar si el cliente está activo.
 
-Para utilizarlo, crea primero la ficha del cliente. Después podrás seleccionarla en sus pedidos y oportunidades.
+Para utilizarlo, se crea primero la ficha del cliente. Después se puede seleccionar en sus pedidos y oportunidades.
 
 La casilla Activo conserva una clasificación del cliente. El indicador general de clientes sigue contando todas las fichas registradas.
 
@@ -182,7 +182,7 @@ Son los detalles de lo que se vende en cada pedido. Cada línea relaciona:
 
 Un pedido puede tener varias líneas. Por ejemplo, dos unidades a 100 € y una unidad a 50 € producen un total de 250 €.
 
-Para añadir una línea, selecciona el pedido y el producto, completa cantidad y precio y pulsa **Crear registro**.
+Para añadir una línea, se seleccionan el pedido y el producto, se completan la cantidad y el precio y se pulsa **Crear registro**.
 
 #### Oportunidades
 
@@ -210,7 +210,7 @@ Resultado: aparece una alerta de stock
 
 También se considera alerta cuando el stock coincide exactamente con el mínimo.
 
-Para actualizar existencias, edita el componente y guarda su nuevo stock. El panel y la vista de alertas reflejarán ese valor al volver a consultarlos.
+Para actualizar existencias, se edita el componente y se guarda su nuevo stock. El panel y la vista de alertas reflejarán ese valor al volver a consultarlos.
 
 El alcance actual es el registro de proveedores y existencias. Los cambios en líneas de venta no descuentan automáticamente componentes y el módulo no genera órdenes de compra.
 
@@ -220,7 +220,7 @@ Permite mantener las fichas de los empleados: nombre, apellidos, departamento, p
 
 Se utiliza con el mismo formulario de creación y edición que las demás entidades. También admite búsquedas, ordenación y exportación.
 
-Por ejemplo, puedes filtrar el campo Departamento para consultar los empleados de Ingeniería o preparar un informe con nombre, departamento y puesto.
+Por ejemplo, se puede filtrar el campo Departamento para consultar los empleados de Ingeniería o preparar un informe con nombre, departamento y puesto.
 
 Esta versión gestiona los datos de las fichas; no incorpora cálculo de nóminas ni control horario.
 
@@ -230,11 +230,11 @@ Muestra las facturas que ya se han emitido desde Pedidos.
 
 Para generar una factura:
 
-1. Crea o selecciona un pedido con líneas.
-2. Revisa productos, cantidades y precios.
-3. Comprueba que esté Confirmado, En fabricación o Entregado.
-4. Pulsa **Emitir factura**.
-5. Entra en **Facturación** para consultarla.
+1. Se crea o se selecciona un pedido con líneas.
+2. Se revisan los productos, cantidades y precios.
+3. Se comprueba que esté Confirmado, En fabricación o Entregado.
+4. Se pulsa **Emitir factura**.
+5. Se accede a **Facturación** para consultarla.
 
 La factura conserva su número, pedido de origen, cliente, fecha, base, IVA, total y estado de sincronización. El supuesto académico aplica un IVA fijo del 21 %.
 
@@ -246,7 +246,7 @@ Ejemplo:
 | IVA del supuesto, 21 % | 42,00 € |
 | Total | 242,00 € |
 
-Al emitirla se conserva una copia de esos datos. El pedido y sus líneas quedan bloqueados para mantener la coherencia con la factura. Si vuelves a pulsar Emitir factura para el mismo pedido, se recupera la factura existente.
+Al emitirla se conserva una copia de esos datos. El pedido y sus líneas quedan bloqueados para mantener la coherencia con la factura. Si se vuelve a pulsar Emitir factura para el mismo pedido, se recupera la factura existente.
 
 Los estados de esta pantalla se refieren al envío contable:
 
@@ -267,18 +267,18 @@ El **Informe completo** conserva el trabajo de UD3: incluye las entidades del ER
 
 Para crear un informe personalizado:
 
-1. Selecciona el origen de los datos: una entidad o una vista SQL.
-2. Escribe el título.
-3. Marca las columnas que quieres incluir.
-4. Configura los filtros y la ordenación.
-5. Puedes pulsar **Aplicar consulta** para comprobar cuántos registros coinciden.
-6. Pulsa **Guardar informe**.
-7. Abre el informe desde la lista de guardados.
-8. Usa **Imprimir / Guardar PDF** para imprimirlo o generar un PDF con el navegador.
+1. Se selecciona el origen de los datos: una entidad o una vista SQL.
+2. Se escribe el título.
+3. Se marcan las columnas que se desean incluir.
+4. Se configuran los filtros y la ordenación.
+5. Se puede pulsar **Aplicar consulta** para comprobar cuántos registros coinciden.
+6. Se pulsa **Guardar informe**.
+7. Se abre el informe desde la lista de guardados.
+8. Se utiliza **Imprimir / Guardar PDF** para imprimirlo o generar un PDF con el navegador.
 
-Por ejemplo, puedes guardar un informe de empleados con nombre, departamento y puesto, filtrado por un departamento concreto.
+Por ejemplo, se puede guardar un informe de empleados con nombre, departamento y puesto, filtrado por un departamento concreto.
 
-Se guarda la definición de la consulta. Al abrir de nuevo el informe se consultan los datos actuales; el PDF que hayas generado conserva lo que mostraba en ese momento.
+Se guarda la definición de la consulta. Al abrir de nuevo el informe se consultan los datos actuales; el PDF que se haya generado conserva lo que mostraba en ese momento.
 
 Eliminar un informe guardado borra su definición. Los registros de la entidad permanecen en su tabla.
 
@@ -299,7 +299,7 @@ Las vistas incluidas son:
 | v_stock_alertas | Componentes con stock igual o inferior al mínimo y su proveedor. |
 | v_facturas_estado | Número de facturas e importe agrupados por estado de sincronización. |
 
-Para usarlas, selecciona una vista, ajusta los filtros y pulsa **Aplicar consulta**. Puedes cambiar la ordenación, avanzar entre páginas y exportar el resultado a CSV.
+Para usarlas, se selecciona una vista, se ajustan los filtros y se pulsa **Aplicar consulta**. Se puede cambiar la ordenación, avanzar entre páginas y exportar el resultado a CSV.
 
 Son pantallas de consulta. Los cambios en los datos se realizan desde la entidad correspondiente.
 
@@ -309,13 +309,13 @@ Permite ajustar la aplicación a otras necesidades de la empresa.
 
 #### Seleccionar módulos
 
-Marca los módulos que quieres ver en la navegación y pulsa **Guardar módulos**. Debe quedar al menos uno seleccionado.
+Se marcan los módulos que se desean mostrar en la navegación y se pulsa **Guardar módulos**. Debe quedar al menos uno seleccionado.
 
 La selección controla qué módulos aparecen en el menú. Los registros se conservan y la selección no establece permisos por usuario.
 
 #### Crear tablas propias
 
-En **Crear una tabla**, indica un nombre SQL, por ejemplo contratos, y pulsa **Crear tabla**.
+En **Crear una tabla**, se indica un nombre SQL, por ejemplo contratos, y se pulsa **Crear tabla**.
 
 La nueva tabla incluye identificador, nombre y notas. Aparece en **Tablas propias** y después se puede ampliar con campos.
 
@@ -325,12 +325,12 @@ Los nombres SQL se escriben en minúsculas, sin espacios ni acentos. Pueden incl
 
 Para ampliar una entidad:
 
-1. Selecciona la tabla.
-2. Escribe el nombre SQL del campo, por ejemplo fecha_revision.
-3. Escribe la etiqueta que verá el usuario, como Fecha de revisión.
-4. Elige el tipo de control.
-5. Si eliges una lista, indica las opciones separadas por comas.
-6. Pulsa **Añadir campo**.
+1. Se selecciona la tabla.
+2. Se escribe el nombre SQL del campo, por ejemplo fecha_revision.
+3. Se escribe la etiqueta que se mostrará, como Fecha de revisión.
+4. Se elige el tipo de control.
+5. Si se elige una lista, se indican las opciones separadas por comas.
+6. Se pulsa **Añadir campo**.
 
 Los tipos disponibles son Texto, Texto largo, Email, Fecha, Número decimal, Sí / No y Lista de opciones.
 
@@ -348,11 +348,11 @@ La pantalla permite comprobar la conexión, consultar facturas, enviarlas, revis
 
 El flujo de uso es:
 
-1. Inicia el servicio contable en su terminal.
-2. Pulsa **Actualizar estado**.
-3. Comprueba que aparece conectado.
-4. Selecciona una factura y pulsa **Sincronizar**.
-5. Revisa su referencia externa y el documento del receptor.
+1. Se inicia el servicio contable en su terminal.
+2. Se pulsa **Actualizar estado**.
+3. Se comprueba que aparece conectado.
+4. Se selecciona una factura y se pulsa **Sincronizar**.
+5. Se revisan su referencia externa y el documento del receptor.
 
 En el ejemplo de una base de 200 €, IVA de 42 € y total de 242 €, se crean estos movimientos:
 
@@ -365,7 +365,7 @@ En el ejemplo de una base de 200 €, IVA de 42 € y total de 242 €, se crean
 
 El servicio comprueba que los importes cuadren. Para identificar un documento utiliza su origen y su número. Un reenvío con el mismo contenido recupera la referencia existente; un documento con esa identidad y otros datos se rechaza.
 
-Si falla el envío, consulta **Historial de sincronización**. Antes de reintentar, comprueba que el servidor esté activo, que se haya iniciado desde la carpeta correcta y que la URL y la clave de integración coincidan con la configuración.
+Si falla el envío, se consulta **Historial de sincronización**. Antes de reintentar, se comprueba que el servidor esté activo, que se haya iniciado desde la carpeta correcta y que la URL y la clave de integración coincidan con la configuración.
 
 La integración es un envío entre aplicaciones por HTTP. Este botón no envía un correo al cliente.
 
@@ -377,23 +377,23 @@ Permite consultar el modelo **phi4-mini:latest** mediante Ollama para interpreta
 
 Para realizar un análisis:
 
-1. Pulsa **Comprobar conexión**.
-2. Comprueba que el modelo está instalado.
-3. Escribe una pregunta, como «Analiza la evolución mensual de los pedidos».
-4. Pulsa **Consultar IA**.
-5. Revisa los datos verificados y la interpretación del modelo.
+1. Se pulsa **Comprobar conexión**.
+2. Se comprueba que el modelo está instalado.
+3. Se escribe una pregunta, como «Analiza la evolución mensual de los pedidos».
+4. Se pulsa **Consultar IA**.
+5. Se revisan los datos verificados y la interpretación del modelo.
 
-La consulta puede tardar hasta dos minutos. Puedes utilizar **Cancelar** para dejar de esperar esa petición en la interfaz.
+La consulta puede tardar hasta dos minutos. Se puede utilizar **Cancelar** para dejar de esperar esa petición en la interfaz.
 
 El servidor prepara datos agregados: indicadores, importes mensuales, mes de mayor importe y recuentos por estado. No envía fichas individuales, emails ni salarios.
 
 Para solicitar cambios en el panel:
 
-1. Marca **Permitir una propuesta para reorganizar el panel**.
-2. Describe el cambio: por ejemplo, «Cambia la tarjeta de estados de pedidos a barras y ocupa dos columnas».
-3. Revisa la propuesta mostrada.
-4. Pulsa **Aplicar propuesta** o **Descartar**.
-5. Si la aplicaste y quieres restaurar el panel anterior, utiliza **Deshacer cambio del panel** mientras sigas en esa vista.
+1. Se marca **Permitir una propuesta para reorganizar el panel**.
+2. Se describe el cambio: por ejemplo, «Cambia la tarjeta de estados de pedidos a barras y ocupa dos columnas».
+3. Se revisa la propuesta mostrada.
+4. Se pulsa **Aplicar propuesta** o **Descartar**.
+5. Si se ha aplicado la propuesta y se desea restaurar el panel anterior, se utiliza **Deshacer cambio del panel** mientras se permanezca en esa vista.
 
 La configuración de tarjetas se incorpora al contexto cuando se habilitan propuestas. El servidor valida las fuentes, tipos y tamaños antes de admitirlas.
 
@@ -415,19 +415,19 @@ La auditoría sirve para revisar lo que ha ocurrido. No permite deshacer automá
 
 ## 5. Ejemplo de uso del ERP/CRM de principio a fin
 
-Este recorrido utiliza datos de demostración que puedes introducir desde la interfaz:
+Este recorrido utiliza datos de demostración que se pueden introducir desde la interfaz:
 
-1. **Crear un cliente.** En Ventas y CRM → Clientes, registra Cliente de demostración y sus datos de contacto.
-2. **Crear un producto.** En Productos, registra Producto de demostración con precio de 100 €.
-3. **Crear un pedido.** Selecciona ese cliente, indica una fecha y utiliza el estado Confirmado.
-4. **Añadir una línea.** En Líneas de pedido, selecciona el pedido, el producto, cantidad 2 y precio unitario 100 €.
-5. **Comprobar el total.** Vuelve a Pedidos y verifica que su total sea 200 €.
-6. **Emitir la factura.** Revisa las líneas y pulsa Emitir factura. En este supuesto la base es 200 €, el IVA 42 € y el total 242 €.
-7. **Enviar a contabilidad.** Inicia el segundo servicio y utiliza Enviar a contabilidad o Sincronizar.
-8. **Comprobar el asiento.** Revisa la referencia externa, el documento recibido y los movimientos de las cuentas 430, 700 y 477.
-9. **Revisar el negocio.** Abre Vista general y consulta los indicadores.
-10. **Preparar documentación.** Crea un informe con los datos que necesites y guárdalo como PDF.
-11. **Consultar la auditoría.** Revisa en Operaciones los registros generados por el proceso.
+1. **Crear un cliente.** En Ventas y CRM → Clientes, se registra Cliente de demostración y sus datos de contacto.
+2. **Crear un producto.** En Productos, se registra Producto de demostración con precio de 100 €.
+3. **Crear un pedido.** Se selecciona ese cliente, se indica una fecha y se utiliza el estado Confirmado.
+4. **Añadir una línea.** En Líneas de pedido, se seleccionan el pedido, el producto, cantidad 2 y precio unitario 100 €.
+5. **Comprobar el total.** Se vuelve a Pedidos y se verifica que su total sea 200 €.
+6. **Emitir la factura.** Se revisan las líneas y se pulsa Emitir factura. En este supuesto la base es 200 €, el IVA 42 € y el total 242 €.
+7. **Enviar a contabilidad.** Se inicia el segundo servicio y se utiliza Enviar a contabilidad o Sincronizar.
+8. **Comprobar el asiento.** Se revisan la referencia externa, el documento recibido y los movimientos de las cuentas 430, 700 y 477.
+9. **Revisar el negocio.** Se abre Vista general y se consultan los indicadores.
+10. **Preparar documentación.** Se crea un informe con los datos necesarios y se guarda como PDF.
+11. **Consultar la auditoría.** Se revisan en Operaciones los registros generados por el proceso.
 
 La emisión deja bloqueado el pedido, por lo que los productos, cantidades y precios se revisan antes de facturarlo.
 
@@ -639,15 +639,15 @@ Estas medidas acompañan a la validación y a las restricciones de la base. La v
 
 | Situación | Qué comprobar |
 | --- | --- |
-| Se abre el HTML, pero no carga datos. | Accede por el servidor HTTP con PHP y no directamente como archivo. |
-| No se confirma el envío contable. | Inicia el segundo servicio desde la carpeta del proyecto y revisa Actualizar estado e Historial de sincronización. |
-| El servicio devuelve un error de servidor al arrancar con router.php. | Comprueba la carpeta de trabajo con pwd y que exista router.php. |
-| El calendario no muestra pedidos. | Selecciona un mes con pedidos y revisa su campo Fecha. |
-| No se puede editar un pedido. | Comprueba si ya tiene una factura emitida. |
-| No se puede borrar una fila. | Revisa si otros registros están relacionados con ella. |
-| El modelo de IA no responde. | Revisa la conexión con Ollama, su URL y la instalación de phi4-mini:latest. |
-| Un campo nuevo no aparece en una pantalla ya abierta. | Vuelve a entrar en la entidad para cargar su estructura actualizada. |
-| El CSV no coincide con el filtro que acabas de escribir. | Pulsa Aplicar consulta antes de exportar. |
+| Se abre el HTML, pero no carga datos. | Se accede por el servidor HTTP con PHP y no directamente como archivo. |
+| No se confirma el envío contable. | Se inicia el segundo servicio desde la carpeta del proyecto y se revisan Actualizar estado e Historial de sincronización. |
+| El servicio devuelve un error de servidor al arrancar con router.php. | Se comprueba la carpeta de trabajo con pwd y que exista router.php. |
+| El calendario no muestra pedidos. | Se selecciona un mes con pedidos y se revisa su campo Fecha. |
+| No se puede editar un pedido. | Se comprueba si ya tiene una factura emitida. |
+| No se puede borrar una fila. | Se revisa si otros registros están relacionados con ella. |
+| El modelo de IA no responde. | Se revisan la conexión con Ollama, su URL y la instalación de phi4-mini:latest. |
+| Un campo nuevo no aparece en una pantalla ya abierta. | Se vuelve a entrar en la entidad para cargar su estructura actualizada. |
+| El CSV no coincide con el filtro que se acaba de escribir. | Se pulsa Aplicar consulta antes de exportar. |
 
 Para ampliar la información:
 
